@@ -1,0 +1,39 @@
+//
+//  Prefix.pch
+//  OA
+//
+//  Created by Elon Musk on 16/7/12.
+//  Copyright © 2016年 panyongchao. All rights reserved.
+//
+
+#ifndef Prefix_pch
+#define Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIImageView+WebCache.h"
+#import "MacroDefine.h"
+#import "AFNetworking.h"
+#import "HttpContants.h"
+#import "NSString+Regular.h"
+#import "UIImage+GIF.h"
+#import "MBProgressHUD+Custom.h"
+#import "UIButton+BackgroundColor.h"
+#import "UIImage+ColorToImage.h"
+#import "IQKeyboardManager.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import <MessageUI/MessageUI.h>
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import "AccountManager.h"
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
+#import <BaiduMapAPI_Map/BMKMapComponent.h>//引入地图功能所有的头文件
+#import <BaiduMapAPI_Search/BMKSearchComponent.h>//引入检索功能所有的头文件
+#import <BaiduMapAPI_Cloud/BMKCloudSearchComponent.h>//引入云检索功能所有的头文件
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>//引入计算工具所有的头文件
+#import <BaiduMapAPI_Radar/BMKRadarComponent.h>//引入周边雷达功能所有的头文件
+
+#import <QuickLook/QuickLook.h>
+#endif /* Prefix_pch */
