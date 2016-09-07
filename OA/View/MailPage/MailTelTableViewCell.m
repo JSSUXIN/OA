@@ -23,8 +23,8 @@
 }
 
 - (void)initView{
-    self.headView = [[UIImageView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(40), 0, RELATIVE_WIDTH(60), RELATIVE_WIDTH(60))];
-    self.headView.layer.cornerRadius = RELATIVE_WIDTH(30);
+    self.headView = [[UIImageView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(40), 0, RELATIVE_WIDTH(80), RELATIVE_WIDTH(80))];
+    self.headView.layer.cornerRadius = RELATIVE_WIDTH(40);
     self.headView.layer.masksToBounds = YES;
     self.headView.center = CGPointMake(self.headView.center.x, RELATIVE_WIDTH(70));
     [self.contentView addSubview:self.headView];
@@ -35,7 +35,7 @@
     self.nameLabel.center = CGPointMake(self.nameLabel.center.x, RELATIVE_WIDTH(35));
     [self.contentView addSubview:self.nameLabel];
     
-    self.detailText = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(self.nameLabel), 0, RELATIVE_WIDTH(300), RELATIVE_WIDTH(30))];
+    self.detailText = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(self.nameLabel), 0, RELATIVE_WIDTH(600), RELATIVE_WIDTH(30))];
     self.detailText.center = CGPointMake(self.detailText.center.x, RELATIVE_WIDTH(35));
     self.detailText.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(20)];
     self.detailText.textColor = grayTextcolor;

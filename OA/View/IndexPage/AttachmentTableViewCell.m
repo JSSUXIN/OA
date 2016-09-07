@@ -29,12 +29,13 @@
     
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_styleImage)+RELATIVE_WIDTH(20), 0, mScreenWidth - RELATIVE_WIDTH(100), RELATIVE_WIDTH(50))];
     _nameLabel.center = CGPointMake(_nameLabel.center.x, RELATIVE_WIDTH(37));
-    _nameLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(25)];
+    _nameLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:_nameLabel];
     
     _willReadBtn = [[UIButton alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_styleImage)+RELATIVE_WIDTH(20), GG_BOTTOM_Y(_nameLabel), RELATIVE_WIDTH(100), RELATIVE_WIDTH(40))];
-    _willReadBtn.center = CGPointMake(_willReadBtn.center.x, RELATIVE_WIDTH(112));
+    _willReadBtn.center = CGPointMake(_willReadBtn.center.x, RELATIVE_WIDTH(102));
     [_willReadBtn setTitle:@"预览" forState:UIControlStateNormal];
+    _willReadBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     _willReadBtn.layer.borderColor = [UIColor redColor].CGColor;
     [_willReadBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     _willReadBtn.layer.borderWidth = 0.5;
@@ -55,9 +56,9 @@
     NSArray *textArray = [model.path componentsSeparatedByString:@"."];
     if ([[textArray lastObject] isEqualToString:@"pdf"]) {
         self.styleImage.image = mImageByName(@"ic_default_pdf");
-    }else if ([[textArray lastObject] isEqualToString:@"docx"]){
+    }else if ([[textArray lastObject] isEqualToString:@"docx"]||[[textArray lastObject] isEqualToString:@"doc"]){
         self.styleImage.image = mImageByName(@"ic_default_doc");
-    }else if ([[textArray lastObject] isEqualToString:@"xls"]){
+    }else if ([[textArray lastObject] isEqualToString:@"xlsx"]||[[textArray lastObject] isEqualToString:@"xls"]){
         self.styleImage.image = mImageByName(@"ic_default_xls");
     }else{
         self.styleImage.image = mImageByName(@"");

@@ -144,7 +144,7 @@
         if (!cell) {
             cell = [[MailTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         [cell setContentWithModel:model];
         return cell;
     }else{
@@ -153,7 +153,7 @@
             cell = [[MailEditTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellEditId];
         }
         cell.tag = 10000+indexPath.row;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         [cell setContentWithModel:model];
         return cell;
         }
@@ -167,6 +167,8 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //点击后恢复颜色变化
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MailListModel *model = [self.MailData objectAtIndex:indexPath.row];
     if (!self.isEdit) {
         MailDetailViewController *mailDetail = [[MailDetailViewController alloc]init];

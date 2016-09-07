@@ -114,6 +114,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+}
+
 - (void)initSerachView{
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, RELATIVE_WIDTH(90))];
     _searchBar.placeholder = @"搜索";
@@ -229,18 +233,20 @@
             cell = [[MailTelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:mailCellId];
         }
         cell.tag = indexPath.section *100000+indexPath.row+9;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.backgroundColor = mRGBColor(250, 250, 251);
         [cell setContentWithDic:usermodel];
-        return cell;
-    }else{
+            return cell;
+        }else{
      TelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
         cell = [[TelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setContentWithDic:usermodel];
-        return cell;
-    }
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.backgroundColor = mRGBColor(250, 250, 251);
+        [cell setContentWithDic:usermodel];
+            return cell;
+        }
     }
 }
 
@@ -295,18 +301,19 @@
     
     eButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentLeft;
     
-    eButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    eButton.titleLabel.font = [UIFont systemFontOfSize:15];
     
-    [eButton setTitleEdgeInsets:UIEdgeInsetsMake(5,20, 0,0)];
+    [eButton setTitleEdgeInsets:UIEdgeInsetsMake(0,20, 0,0)];
     
-    [eButton setImageEdgeInsets:UIEdgeInsetsMake(5,10, 0,self.view.bounds.size.width - 35)];
+    [eButton setImageEdgeInsets:UIEdgeInsetsMake(-5,RELATIVE_WIDTH(20), -5,self.view.bounds.size.width - 40)];
     
     //下显示线
     
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0, hView.frame.size.height-1, hView.frame.size.width,0.5)];
+    UIView *lineview=[[UIView alloc] initWithFrame:CGRectMake(0, RELATIVE_WIDTH(98), mScreenWidth,0.5)];
     
-    label.backgroundColor = halvingLineColor;
-    [hView addSubview:label];
+    lineview.backgroundColor = halvingLineColor;
+        
+    [hView addSubview:lineview];
     
     [hView addSubview: eButton];
     
@@ -339,6 +346,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView ==self.searchTableView) {
         UsersModel *userModel = [self.searchData objectAtIndex:indexPath.row];
         NSInteger sec = 0;

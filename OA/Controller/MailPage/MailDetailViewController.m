@@ -58,18 +58,6 @@
 
 }
 
-//- (UITableView *)tableview{
-//    if (!_tableview) {
-//        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(90)) style:UITableViewStyleGrouped];
-//        _tableview.delegate = self;
-//        _tableview.dataSource = self;
-//        _tableview.scrollEnabled = YES;
-//        _tableview.bounces = NO;
-//        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    }
-//    return _tableview;
-//}
-
 - (UITableView *)fileTableview{
     if (!_fileTableview) {
         _fileTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, mScreenHeight - RELATIVE_WIDTH(300) - mNavBarWithStateHeight - RELATIVE_WIDTH(90), mScreenWidth, RELATIVE_WIDTH(300)) style:UITableViewStylePlain];
@@ -77,6 +65,7 @@
         _fileTableview.dataSource = self;
         _fileTableview.scrollEnabled = YES;
         _fileTableview.backgroundColor = grayBackGround;
+        _fileTableview.bounces = NO;
         _fileTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _fileTableview;
@@ -115,14 +104,6 @@
     // Do any additional setup after loading the view from its nib.
 }
 #pragma mark 收缩键盘
-//-(void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    [self.view endEditing:YES];
-//}
-//
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    [self.view endEditing:YES];
-//}
 - (void)settitle{
     switch (self.mailType) {
         case WriteMail:
@@ -240,7 +221,7 @@
                 [upView addSubview:_textLabel];
             }
             if (!_lineview) {
-                _lineview = [[UIView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(88), mScreenWidth, 0.5)];
+                _lineview = [[UIView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(90), mScreenWidth, 0.5)];
                 _lineview.backgroundColor = halvingLineColor;
                 [upView addSubview:_lineview];
             }
@@ -282,7 +263,7 @@
                 [upView addSubview:_themeField];
             }
             if (!self.textview) {
-                self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth - 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 30)];
+                self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), 0, mScreenWidth - 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 30)];
                 self.textview.font = [UIFont systemFontOfSize:15];
                 self.textview.placeholder = @"输入内容";
                 [self.textview setPlaceholderFont:[UIFont systemFontOfSize:15]];
@@ -290,7 +271,7 @@
             }
             CGFloat height = (mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300))/2;
             if (!self.lastTextView) {
-                self.lastTextView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), height, mScreenHeight- 2*RELATIVE_WIDTH(20), height)];
+                self.lastTextView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), height, mScreenHeight- 2*RELATIVE_WIDTH(20), height)];
                 [_downView addSubview:_lastTextView];
             }
             _lastTextView.hidden = YES;
@@ -311,7 +292,7 @@
             if (!_sendFromLabel) {
                 _sendFromLabel = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), GG_BOTTOM_Y(_theme), RELATIVE_WIDTH(100), RELATIVE_WIDTH(25))];
                 _sendFromLabel.font = [UIFont systemFontOfSize:12];
-                _sendFromLabel.text = @"发件人:";
+                _sendFromLabel.text = @"发件人 ：";
                 _sendFromLabel.center = CGPointMake(_sendFromLabel.center.x, RELATIVE_WIDTH(112));
                 _sendFromLabel.textColor = grayTextcolor;
                 [upView addSubview:_sendFromLabel];
@@ -328,7 +309,7 @@
                 _sendTimeLabel.font =  [UIFont systemFontOfSize:12];
                 _sendTimeLabel.center = CGPointMake(_sendTimeLabel.center.x, RELATIVE_WIDTH(157));
                 
-                _sendTimeLabel.text = @"时间:";
+                _sendTimeLabel.text = @"时间 ：";
                 _sendTimeLabel.textColor = grayTextcolor;
                 [upView addSubview:_sendTimeLabel];
             }
@@ -341,11 +322,14 @@
             [upView addSubview:_sendTimeDetailLabel];
             
             if (!self.textview) {
-                self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth- 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 10)];
+                self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), 0, mScreenWidth- 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300))];
                 _textview.editable = NO;
                 [_downView addSubview:_textview];
             }
-
+            if (self.mailType ==OutboxMail ||self.mailType ==DusbinboxMail) {
+                self.textview.frame = CGRectMake(RELATIVE_WIDTH(10), 0, mScreenWidth- 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));
+                _downView.frame = CGRectMake(0,RELATIVE_WIDTH(210),mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));
+            }
             
         }
             break;
@@ -358,102 +342,21 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == self.fileTableview) {
         return 1;
-    }else{
-        return 2;
-    }
+
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.fileTableview) {
         return self.mailFileArray.count;
-    }else{
-    
-    switch (self.mailType) {
-        case WriteMail:
-        case ReturnMail:
-        case EditMail:
-        case Transpond:
-        {
-            if (section ==0) {
-                return 2;
-            }
-            else{
-                return 1;
-            }
-        }
-            break;
-        case InboxMail:
-        case OutboxMail:
-        case DraftboxMail:
-        case DusbinboxMail:
-        {
-            return 1;
-        }
-            break;
-        default:
-            return 0;
-            break;
-    }
-    }
+   
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.fileTableview) {
         return RELATIVE_WIDTH(150);
-    }else{
-    switch (self.mailType) {
-        case WriteMail:
-        case ReturnMail:
-        case EditMail:
-        case Transpond:
-        {
-            if (indexPath.section ==0) {
-                return RELATIVE_WIDTH(90);
-            }else{
-                return mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 15;
-            }
-        }
-            break;
-        case InboxMail:
-        case OutboxMail:
-        case DraftboxMail:
-        case DusbinboxMail:
-            {
-                if (indexPath.section ==0) {
-                    return RELATIVE_WIDTH(180);
-                }else{
-                    return mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 15;
-                }
-            }
-            break;
-        default:
-            return 0;
-            break;
-    }
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (tableView == self.fileTableview) {
-        return 0.01;
-    }else{
-        if (section == 1) {
-            return 15;
-        }else{
-            return 0.01;
-        }
-    }
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.fileTableview) {
         MailFileModel *model = [self.mailFileArray objectAtIndex:indexPath.row];
         static NSString *reuseIdentifiercell = @"cell";
         AttachmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifiercell];
@@ -464,188 +367,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setCOntent:model];
         return cell;
-    }else{
-    static NSString *reuseIdentifier = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-                }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        switch (self.mailType) {
-            case WriteMail:
-            case ReturnMail:
-            case EditMail:
-            case Transpond:
-            {
-                if (indexPath.section ==0){
-                    if (indexPath.row ==0)  {
-                        if (!_IndexLabel){
-                            _IndexLabel = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, 60, RELATIVE_WIDTH(35))];
-                            _IndexLabel.text = @"收件人:";
-                            _IndexLabel.font = [UIFont systemFontOfSize:15];
-                            _IndexLabel.textAlignment = NSTextAlignmentLeft;
-                            _IndexLabel.center = CGPointMake(_IndexLabel.center.x, RELATIVE_WIDTH(45));
-                            [cell.contentView addSubview:_IndexLabel];
-                        }
-                        if (!_textLabel) {
-                            _textLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_IndexLabel), 0, mScreenWidth - RELATIVE_WIDTH(370), RELATIVE_WIDTH(35))];
-                            _textLabel.center = CGPointMake(_textLabel.center.x, RELATIVE_WIDTH(45));
-                            _textLabel.font = [UIFont systemFontOfSize:15];
-                            _textLabel.textAlignment = NSTextAlignmentLeft;
-                            [cell.contentView addSubview:_textLabel];
-                        }
-                        if (!_lineview) {
-                            _lineview = [[UIView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(88), mScreenWidth, 0.5)];
-                            _lineview.backgroundColor = halvingLineColor;
-                            [cell.contentView addSubview:_lineview];
-                        }
-                        
-                        NSMutableArray *mul = [NSMutableArray array];
-                        if (self.sendArray.count >0) {
-                            for (UsersModel *model in self.sendArray) {
-                                [mul addObject:model.name];
-                            }
-                            _textLabel.text = [mul componentsJoinedByString:@","];
-                        }else{
-                            _textLabel.text = @"";
-                        }
-                        if (self.mailType !=ReturnMail) {
-                            if (!_clearButton) {
-                                _clearButton = [[UIButton alloc]initWithFrame:CGRectMake(mScreenWidth - RELATIVE_WIDTH(190), 0, RELATIVE_WIDTH(100), RELATIVE_WIDTH(40))];
-                                _clearButton.layer.masksToBounds =YES;
-                                _clearButton.layer.cornerRadius = RELATIVE_WIDTH(20);
-                                [_clearButton setTitle:@"清空" forState:UIControlStateNormal];
-                                _clearButton.titleLabel.font = [UIFont systemFontOfSize:12];
-                                [_clearButton setBackgroundColor:redBack];
-                                [_clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                                _clearButton.center = CGPointMake(_clearButton.center.x, RELATIVE_WIDTH(45));
-                                [_clearButton addTarget:self action:@selector(clearArray) forControlEvents:UIControlEventTouchUpInside];
-                                [cell.contentView addSubview:_clearButton];
-                            }
-                            if (!_addButton) {
-                                _addButton = [[UIButton alloc]initWithFrame:CGRectMake(mScreenWidth - RELATIVE_WIDTH(90), 0, RELATIVE_WIDTH(90), RELATIVE_WIDTH(90))];
-                                _addButton.center = CGPointMake(_addButton.center.x, RELATIVE_WIDTH(45));
-                                [_addButton setImage:mImageByName(@"ic_mailAdd@3x.png") forState:UIControlStateNormal];
-                                [_addButton addTarget:self action:@selector(chooseRecipient) forControlEvents:UIControlEventTouchUpInside];
-                                [cell.contentView addSubview:_addButton];
-                            }
-                        }
-                    }else if (indexPath.row ==1){
-                        if (!_themeLabel) {
-                            _themeLabel = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, 40, RELATIVE_WIDTH(35))];
-                            _themeLabel.text = @"主题:";
-                            _themeLabel.font = [UIFont systemFontOfSize:15];
-                            _themeLabel.textAlignment = NSTextAlignmentLeft;
-                            _themeLabel.center = CGPointMake(_themeLabel.center.x, RELATIVE_WIDTH(45));
-                            [cell.contentView addSubview:_themeLabel];
-                        }
-//                        if (!self.themeField) {
-//                            self.themeField = [[UITextField alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_themeLabel), 0, mScreenWidth - RELATIVE_WIDTH(150), RELATIVE_WIDTH(35))];
-//                            _themeField.font = [UIFont systemFontOfSize:15];
-//
-//                            _themeField.center = CGPointMake(_themeField.center.x, RELATIVE_WIDTH(47));
-//                            [cell.contentView addSubview:_themeField];
-//                        }
-                        if (self.mailType ==ReturnMail) {
-                            _themeField.text = [NSString stringWithFormat:@"Re:%@",self.mailModel.subject];
-                        }else{
-                            _themeField.text = self.mailModel.subject;
-                        }
-                    }
-                }else if (indexPath.section ==1){
-                    if (!self.textview) {
-                    self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth - 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 30)];
-                    [cell.contentView addSubview:_textview];
-                    }
-                    self.textview.font = [UIFont systemFontOfSize:15];
-                    self.textview.placeholder = @"输入内容";
-                    self.textview.backgroundColor = [UIColor yellowColor];
-                    [self.textview setPlaceholderFont:[UIFont systemFontOfSize:15]];
-                    CGFloat height = (mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270)-15)/2;
-                    if (!self.lastTextView) {
-                    self.lastTextView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), height, mScreenHeight- 2*RELATIVE_WIDTH(20), height)];
-                    [cell.contentView addSubview:_lastTextView];
-                    }
-                    _lastTextView.hidden = YES;
-                    _lastTextView.editable = NO;
-                                }
-            }
-                break;
-            case InboxMail:
-            case OutboxMail:
-            case DraftboxMail:
-            case DusbinboxMail:
-            {
-                if (indexPath.section ==0) {
-                    if (!_theme) {
-                    _theme = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth, RELATIVE_WIDTH(90))];
-                    _theme.textColor = [UIColor blackColor];
-                    [cell.contentView addSubview:_theme];
-                    }
-                    _theme.text = self.mailModel.subject;
-
-                    if (!_sendFromLabel) {
-                    _sendFromLabel = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), GG_BOTTOM_Y(_theme), RELATIVE_WIDTH(100), RELATIVE_WIDTH(25))];
-                    _sendFromLabel.font = [UIFont systemFontOfSize:12];
-                    _sendFromLabel.text = @"发件人:";
-                    _sendFromLabel.center = CGPointMake(_sendFromLabel.center.x, RELATIVE_WIDTH(112));
-                    _sendFromLabel.textColor = grayTextcolor;
-                    [cell.contentView addSubview:_sendFromLabel];
-                    }
-                    if (!_sendDetailLabel) {
-                        _sendDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_sendFromLabel), GG_Y(_sendFromLabel), mScreenWidth - RELATIVE_WIDTH(100), RELATIVE_WIDTH(25))];
-                        _sendDetailLabel.font = [UIFont systemFontOfSize:12];
-                        _sendDetailLabel.center = CGPointMake(_sendDetailLabel.center.x, RELATIVE_WIDTH(112));
-                        _sendDetailLabel.textColor = grayTextcolor;
-                        [cell.contentView addSubview:_sendDetailLabel];
-                    }
-                    _sendDetailLabel.text = self.mailModel.sendFromName;
-                    if (!_sendTimeLabel) {
-                        _sendTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), GG_BOTTOM_Y(_sendFromLabel), RELATIVE_WIDTH(100), RELATIVE_WIDTH(25))];
-                        _sendTimeLabel.font =  [UIFont systemFontOfSize:12];
-                        _sendTimeLabel.center = CGPointMake(_sendTimeLabel.center.x, RELATIVE_WIDTH(157));
-                        
-                        _sendTimeLabel.text = @"时间:";
-                        _sendTimeLabel.textColor = grayTextcolor;
-                        [cell.contentView addSubview:_sendTimeLabel];
-                    }
-                    if (!_sendTimeDetailLabel) {
-                        _sendTimeDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_sendTimeLabel), GG_Y(_sendTimeLabel), mScreenWidth - RELATIVE_WIDTH(100), RELATIVE_WIDTH(25))];
-                        _sendTimeDetailLabel.font =  [UIFont systemFontOfSize:12];
-                        _sendTimeDetailLabel.center = CGPointMake(_sendTimeDetailLabel.center.x, RELATIVE_WIDTH(157));
-                    }
-                    if (self.mailModel.sendTime) {
-                        _sendTimeDetailLabel.text = [NSString parseTime:self.mailModel.sendTime];
-                    }
-                    _sendTimeDetailLabel.textColor = grayTextcolor;
-                    [cell.contentView addSubview:_sendTimeDetailLabel];
-                }else{
-                    if (!self.textview) {
-                        self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth- 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270) - 10)];
-                        _textview.editable = NO;
-                        [cell.contentView addSubview:_textview];
-                    }
-                    self.textview.text = self.mailModel.content;
-                }
-            }
-                break;
-            default:
-                return 0;
-                break;
-        }
         
-        return cell;
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView ==self.fileTableview) {
         MailFileModel *filemodel = [self.mailFileArray objectAtIndex:indexPath.row];
         self.fileURLString = [NSString stringWithFormat:@"http://jssuxin.net:90/FilesUpload/Web_FileCenter/%@%@",filemodel.fileGUID,filemodel.fileExt];
         openFileWebView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];
         openFileWebView.delegate = self;
         [openFileWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.fileURLString]]];
-    }
 }
 
 #pragma webviewDelegate
@@ -710,7 +440,7 @@
 - (void)clearArray{
     NSLog(@"点击了清空");
     [self.sendArray removeAllObjects];
-//    [self.tableview reloadData];
+    [self reloadRecive];
 }
 
 - (void)saveMail{
@@ -883,18 +613,9 @@
 
 
 - (void)updateViewContents{
-    NSMutableArray *mul = [NSMutableArray array];
-    if (self.sendArray.count >0) {
-        for (UsersModel *model in self.sendArray) {
-            [mul addObject:model.name];
-        }
-        _textLabel.text = [mul componentsJoinedByString:@","];
-    }else{
-        _textLabel.text = @"";
-    }
-    
+    [self reloadRecive];
     if (self.mailType ==ReturnMail) {
-        _themeField.text = [NSString stringWithFormat:@"Re:%@",self.mailModel.subject];
+        _themeField.text = [NSString stringWithFormat:@"Re：%@",self.mailModel.subject];
     }else{
         _themeField.text = self.mailModel.subject;
     }
@@ -903,18 +624,21 @@
     if (self.mailModel.sendTime) {
         _sendTimeDetailLabel.text = [NSString parseTime:self.mailModel.sendTime];
     }
-    self.textview.text = self.mailModel.content;
+    self.textview.text = [NSString filterHTML:self.mailModel.content];
     CGFloat height = (mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(270)-15)/2;
     if (self.mailType ==ReturnMail) {
         self.textview.frame =CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth - 2*RELATIVE_WIDTH(20), height);
         self.lastTextView.hidden = NO;
         _lastTextView.text = [NSString stringWithFormat:@"------------------------------------------\n%@",self.mailModel.content];
     }else if (self.mailType ==EditMail){
-        _textview.text = self.mailModel.content;
+        _textview.text = [NSString filterHTML:self.mailModel.content];
     }else if (self.mailType ==Transpond){
         _textview.frame =CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth -2*RELATIVE_WIDTH(20), height);
         _lastTextView.hidden = NO;
-        _lastTextView.text = [NSString stringWithFormat:@"--------------------原始信息------------------\n发件人：%@\n收件人：%@\n时 间：%@\n\n%@",self.mailModel.sendFromName,self.mailModel.addresseeNames,[NSString parseTime:self.mailModel.sendTime],self.mailModel.content];
+        _lastTextView.text = [NSString stringWithFormat:@"--------------------原始信息------------------\n发件人：%@\n收件人：%@\n时 间：%@\n\n%@",self.mailModel.sendFromName,self.mailModel.addresseeNames,[NSString parseTime:self.mailModel.sendTime],[NSString filterHTML:self.mailModel.content]];
+    }else if (self.mailType ==DusbinboxMail ||self.mailType ==OutboxMail){
+        _downView.frame = CGRectMake(0,RELATIVE_WIDTH(210),mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));
+        _textview.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));
     }
 
 }
@@ -944,14 +668,18 @@
         }];
         self.mailFileArray  = [MailFileModel mj_objectArrayWithKeyValuesArray:object];
         if (self.mailFileArray.count >0) {
+            if (self.mailType ==OutboxMail ||self.mailType ==DusbinboxMail) {
+                self.textview.frame = CGRectMake(0,0,mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(390));
+                _downView.frame =CGRectMake(0,RELATIVE_WIDTH(210),mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300));
+                [self.view addSubview:self.fileTableview];
+                self.fileTableview.frame = CGRectMake(0, mScreenHeight - RELATIVE_WIDTH(300) - mNavBarWithStateHeight, mScreenWidth, RELATIVE_WIDTH(300));
+            }else{
             self.textview.frame = CGRectMake(0,0,mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(390));
-////            self.tableview.frame =  ;
-//            [self.view addSubview:self.fileTableview];
-//        }else{
-//            self.tableview.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(90));
+            _downView.frame =CGRectMake(0,RELATIVE_WIDTH(210),mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300));
+            [self.view addSubview:self.fileTableview];
+            }
         }
-
-//        [self.fileTableview reloadData];
+        [self.fileTableview reloadData];
     }];
 }
 
@@ -971,13 +699,26 @@
     }
 }
 
+
+- (void)reloadRecive{
+    NSMutableArray *mul = [NSMutableArray array];
+    if (self.sendArray.count >0) {
+        for (UsersModel *model in self.sendArray) {
+            [mul addObject:model.name];
+        }
+        _textLabel.text = [mul componentsJoinedByString:@","];
+    }else{
+        _textLabel.text = @"";
+    }
+}
+
 #pragma mark TelViewControllerDelegate
 
 - (void)choosePersonWith:(NSArray *)personArray{
     NSLog(@"personArray = %@",personArray);
     [self.sendArray removeAllObjects];
     [self.sendArray addObjectsFromArray:personArray];
-//    [self.tableview reloadData];
+    [self reloadRecive];
 }
 
 - (void)didReceiveMemoryWarning {

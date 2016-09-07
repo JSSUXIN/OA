@@ -8,7 +8,7 @@
 
 #import "BRPlaceholderTextView.h"
 #define kTopY 7.0
-#define kLeftX 0.0
+#define kLeftX 5.0
 @interface BRPlaceholderTextView()<UITextViewDelegate>
 @property(strong,nonatomic) UIColor *placeholder_color;
 @property(strong,nonatomic) UIFont * placeholder_font;
