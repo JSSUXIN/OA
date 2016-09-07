@@ -35,7 +35,7 @@
 @property (nonatomic, assign) CGFloat pageViewWith;
 
 @property (nonatomic, weak) id<FilmScrollViewDataSource> dataSource;
-@property (nonatomic, weak) id<FilmScrollViewDelegate> delegate;
+@property (nonatomic, weak) id<FilmScrollViewDelegate> FilmScrollViewDelegate;
 
 - (void)reloadData;
 - (UIView*)viewForRowAtIndex:(NSInteger)index;

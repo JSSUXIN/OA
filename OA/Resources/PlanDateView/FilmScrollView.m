@@ -50,10 +50,10 @@
     
     _cellSize.width = self.frame.size.width - self.padding * 2 - 10 * 2;
     if ([self.delegate respondsToSelector:@selector(sizeCellForPageScrollView:)]) {
-        _cellSize = [self.delegate sizeCellForPageScrollView:self];
+        _cellSize = [self.FilmScrollViewDelegate sizeCellForPageScrollView:self];
     }
     
-    _numberOfCell = [self.delegate numberOfPageInPageScrollView:self];
+    _numberOfCell = [self.FilmScrollViewDelegate numberOfPageInPageScrollView:self];
     
     float startX = self.leftRightOffset;
     float topY   = (self.frame.size.height - _cellSize.height)/2;
@@ -140,7 +140,7 @@
     }
     if (yInCell && xInCell) {
         self.selectedIndex = xInCellNumber;
-        [self.delegate pageScrollView:self didTapPageAtIndex:xInCellNumber];
+        [self.FilmScrollViewDelegate pageScrollView:self didTapPageAtIndex:xInCellNumber];
         [UIView animateWithDuration:0.3 animations:^{
             [self setContentOffset:CGPointMake((_cellSize.width + self.padding) * xInCellNumber, 0)];
         }];
