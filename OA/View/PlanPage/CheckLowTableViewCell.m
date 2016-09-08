@@ -31,7 +31,7 @@
         _nameLabel.center = CGPointMake(_nameLabel.center.x, _headViewImage.center.y);
         [self.contentView addSubview:_nameLabel];
         
-        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(GG_X(_nameLabel), RELATIVE_WIDTH(119), mScreenWidth - GG_X(_nameLabel) - RELATIVE_WIDTH(50), 0.5)];
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(GG_X(_nameLabel), RELATIVE_WIDTH(119), mScreenWidth - GG_X(_nameLabel) , 0.5)];
         lineView.backgroundColor = halvingLineColor;
         [self.contentView addSubview:lineView];
     }

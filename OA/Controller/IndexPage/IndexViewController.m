@@ -211,7 +211,7 @@
                 cell = [[NoImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
             [cell setNoticeContent:model];
-            cell.selectionStyle =UITableViewCellSelectionStyleNone;
+            cell.selectionStyle =UITableViewCellSelectionStyleDefault;
 
             return cell;
         }else{
@@ -222,7 +222,7 @@
                 cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellNoId];
             }
             [cell setNewsContent:model];
-            cell.selectionStyle =UITableViewCellSelectionStyleNone;
+            cell.selectionStyle =UITableViewCellSelectionStyleDefault;
             
             return cell;
         }
@@ -241,7 +241,7 @@
                         [btn addTarget:self action:@selector(changeContext:) forControlEvents:UIControlEventTouchUpInside];
                         btn.tag = 10000+i;
                         [btn setBackgroundColor:[UIColor whiteColor]];
-                        [btn setImageEdgeInsets:UIEdgeInsetsMake(heightOfButton - 1,0,0,0)];
+                        [btn setImageEdgeInsets:UIEdgeInsetsMake(heightOfButton - 2,0,0,0)];
                         [btn setTitleEdgeInsets:UIEdgeInsetsMake(5,-mScreenWidth/2, 5, 0)];
                         [btn setTitleColor:redBack forState:UIControlStateSelected];
                         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -288,6 +288,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *strEnd = @"";
     NSString *title =@"";
     NoticeNewsModel *model;
@@ -433,22 +434,38 @@
 #pragma 退出登录
 - (void)logout{
     NSLog(@"退出登录");
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    [self pushLoginView];
-    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                        NSUserDomainMask, YES);
-    NSString *documentsPath = [paths objectAtIndex:0];
-    
-    NSArray *array = @[@"loginUser.archiver",@"draftbox.archiver",@"outbox.archiver",@"inbox.archiver",@"dustbin.archiver"];
-    for (NSString *archiver in array) {
-        NSString *filePath = [documentsPath stringByAppendingPathComponent:archiver];
-        NSFileManager *defaultManage = [NSFileManager defaultManager];
-        if ([defaultManage isDeletableFileAtPath:filePath]) {
-            [defaultManage removeItemAtPath:filePath error:nil];
-            NSLog(@"删除本地缓存文件成功");
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"确认注销" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                            NSUserDomainMask, YES);
+        NSString *documentsPath = [paths objectAtIndex:0];
+        
+        NSArray *array = @[@"loginUser.archiver",@"draftbox.archiver",@"outbox.archiver",@"inbox.archiver",@"dustbin.archiver"];
+        for (NSString *archiver in array) {
+            NSString *filePath = [documentsPath stringByAppendingPathComponent:archiver];
+            NSFileManager *defaultManage = [NSFileManager defaultManager];
+            if ([defaultManage isDeletableFileAtPath:filePath]) {
+                [defaultManage removeItemAtPath:filePath error:nil];
+                NSLog(@"删除本地缓存文件成功");
+            }
         }
-    }
+        LoginViewController *login = [[LoginViewController alloc]init];
+        self.view.window.rootViewController =login;
+        
+    }];
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+
+    }];
+    [alertController  addAction:sure];
+    [alertController addAction:cancle];
+    
+    [self presentViewController:alertController  animated:YES completion:nil];
+
+    
+    
+    
+    
     
 //    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"loginUser.archiver"];
 //    
@@ -459,8 +476,7 @@
 //    }
     
     
-    LoginViewController *login = [[LoginViewController alloc]init];
-    self.view.window.rootViewController =login;
+    
     
     
 }

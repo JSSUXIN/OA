@@ -272,6 +272,7 @@
             CGFloat height = (mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300))/2;
             if (!self.lastTextView) {
                 self.lastTextView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), height, mScreenHeight- 2*RELATIVE_WIDTH(20), height)];
+                self.lastTextView.font = [UIFont systemFontOfSize:15];
                 [_downView addSubview:_lastTextView];
             }
             _lastTextView.hidden = YES;
@@ -324,6 +325,7 @@
             if (!self.textview) {
                 self.textview = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), 0, mScreenWidth- 2*RELATIVE_WIDTH(20), mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300))];
                 _textview.editable = NO;
+                _textview.font = [UIFont systemFontOfSize:15];
                 [_downView addSubview:_textview];
             }
             if (self.mailType ==OutboxMail ||self.mailType ==DusbinboxMail) {
@@ -635,7 +637,7 @@
     }else if (self.mailType ==Transpond){
         _textview.frame =CGRectMake(RELATIVE_WIDTH(20), 0, mScreenWidth -2*RELATIVE_WIDTH(20), height);
         _lastTextView.hidden = NO;
-        _lastTextView.text = [NSString stringWithFormat:@"--------------------原始信息------------------\n发件人：%@\n收件人：%@\n时 间：%@\n\n%@",self.mailModel.sendFromName,self.mailModel.addresseeNames,[NSString parseTime:self.mailModel.sendTime],[NSString filterHTML:self.mailModel.content]];
+        _lastTextView.text = [NSString stringWithFormat:@"--------------------原始信息--------------------\n发件人：%@\n收件人：%@\n时 间：%@\n\n%@",self.mailModel.sendFromName,self.mailModel.addresseeNames,[NSString parseTime:self.mailModel.sendTime],[NSString filterHTML:self.mailModel.content]];
     }else if (self.mailType ==DusbinboxMail ||self.mailType ==OutboxMail){
         _downView.frame = CGRectMake(0,RELATIVE_WIDTH(210),mScreenWidth ,mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));
         _textview.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(210));

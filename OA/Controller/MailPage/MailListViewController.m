@@ -477,9 +477,14 @@
             [dic setObject:[NSString stringWithFormat:@"%zd",[self getCountWithHasRead:self.MailData]] forKey:@"count"];
             [dic setObject:[NSString stringWithFormat:@"%zd",self.BoxType] forKey:@"type"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTitleNotification" object:nil userInfo:dic];
-
         }
     }];
+}
+
+
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

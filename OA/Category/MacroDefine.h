@@ -20,6 +20,8 @@
 #define mNotificationCenter [NSNotificationCenter defaultCenter]
 
 #define mStringEncoding(str) [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+//uiFont
+#define mFont(fontsize)            [UIFont systemFontOfSize:fontsize]
 
 //加载图片
 #define mImageByName(name)        [UIImage imageNamed:name]
@@ -143,9 +145,14 @@ CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].siz
 #define grayTextcolor mRGBToColor(0xA0A0A0)
 //标准红
 #define redBack  mRGBToColor(0xff404A)
-
+//背景灰
 #define grayBackGround  mRGBToColor(0xf3f3f7)
 
 
+//自适应宽度
+
+#define MaxedSize CGSizeMake(320,2000)
+#define Dict(tfont) [NSDictionary dictionaryWithObjectsAndKeys:tfont,NSFontAttributeName,nil]
+#define RealSize(mString,MaxSize,dict) [mString boundingRectWithSize:MaxSize options:NSStringDrawingUsesLineFragmentOrigin  attributes:dict context:nil].size
 
 

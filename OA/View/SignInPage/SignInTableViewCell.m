@@ -21,14 +21,14 @@
 
 - (void)initView{
     self.mainAddress = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, 3*mScreenWidth/4, RELATIVE_WIDTH(40))];
-    self.mainAddress.center = CGPointMake(self.mainAddress.center.x, RELATIVE_WIDTH(35));
-    self.detailAddress.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+    self.mainAddress.center = CGPointMake(self.mainAddress.center.x, RELATIVE_WIDTH(45));
+    self.mainAddress.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:self.mainAddress];
     
     self.detailAddress = [[UILabel alloc]initWithFrame:CGRectMake(GG_X(self.mainAddress), 0, 3*mScreenWidth/4, RELATIVE_WIDTH(40))];
-    self.detailAddress.center = CGPointMake(self.detailAddress.center.x, RELATIVE_WIDTH(105));
+    self.detailAddress.center = CGPointMake(self.detailAddress.center.x, RELATIVE_WIDTH(95));
     self.detailAddress.textColor = grayTextcolor;
-    self.detailAddress.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(25)];
+    self.detailAddress.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:self.detailAddress];
     
     self.selectedButton = [[UIButton alloc]initWithFrame:CGRectMake(mScreenWidth - RELATIVE_WIDTH(120), 0, RELATIVE_WIDTH(70), RELATIVE_WIDTH(70))];

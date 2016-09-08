@@ -70,7 +70,7 @@
         cell = [[CheckLowTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     [cell setInfomationWithCheckModel:model];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 
@@ -83,6 +83,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CheckLowModel *model = self.dataArray[indexPath.row];
     LowPlanViewController *lowPlan = [[LowPlanViewController alloc]init];
     lowPlan.checkModel = model;

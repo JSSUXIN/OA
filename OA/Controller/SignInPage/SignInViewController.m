@@ -58,7 +58,7 @@ static NSString *cellId = @"cell";
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.scrollEnabled = YES;
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+        _tableView.bounces = NO;
     }
     return _tableView;
 }
@@ -115,7 +115,7 @@ static NSString *cellId = @"cell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==0) {
-        return RELATIVE_WIDTH(300);
+        return RELATIVE_WIDTH(280);
     }else{
         return RELATIVE_WIDTH(140);
     }
@@ -131,11 +131,12 @@ static NSString *cellId = @"cell";
             btn.frame = CGRectMake(i*mScreenWidth/2, 0, mScreenWidth/2, RELATIVE_WIDTH(90));
             btn.backgroundColor = [UIColor whiteColor];
             btn.tag = 100+i;
-            btn.titleLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(26)];
+            btn.titleLabel.font = [UIFont systemFontOfSize:12];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             [btn setImageEdgeInsets:UIEdgeInsetsMake( 3,RELATIVE_WIDTH(60), 3, mScreenWidth/2 - RELATIVE_WIDTH(100 ))];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(3,RELATIVE_WIDTH(40), 3, RELATIVE_WIDTH(20))];
+            [btn setTitleColor:grayTextcolor forState:UIControlStateNormal];
             NSDate *date = [NSDateCalendar getNowTime];
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
             [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -154,7 +155,7 @@ static NSString *cellId = @"cell";
             [_backView addSubview:btn];
         }
         
-        UIView *lineview = [[UIView alloc]initWithFrame:CGRectMake(mScreenWidth/2, 0, 0.5, RELATIVE_WIDTH(90))];
+        UIView *lineview = [[UIView alloc]initWithFrame:CGRectMake(mScreenWidth/2, RELATIVE_WIDTH(10), 0.5, RELATIVE_WIDTH(70))];
         lineview.backgroundColor = halvingLineColor;
         [_backView addSubview:lineview];
         if (![_backView.superview isKindOfClass:[BMKMapView class]]) {
@@ -189,9 +190,9 @@ static NSString *cellId = @"cell";
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellheadId];
         }
         if (!_headImage) {
-        _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(20), RELATIVE_WIDTH(150), RELATIVE_WIDTH(150))];
-        _headImage.layer.cornerRadius = RELATIVE_WIDTH(75);
-        _headImage.center = CGPointMake(self.view.center.x, _headImage.center.x);
+        _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, RELATIVE_WIDTH(130), RELATIVE_WIDTH(130))];
+        _headImage.layer.cornerRadius = RELATIVE_WIDTH(65);
+        _headImage.center = CGPointMake(self.view.center.x, _headImage.center.y);
         [cell.contentView addSubview:_headImage];
         }
         [_headImage sd_setImageWithURL:mUrlWithString([AccountManager sharedManager].headImage) placeholderImage:mImageByName(@"ic_head_default")];
@@ -200,7 +201,7 @@ static NSString *cellId = @"cell";
             _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, GG_BOTTOM_Y(_headImage)+RELATIVE_WIDTH(20), mScreenWidth, RELATIVE_WIDTH(40))];
             _nameLabel.textColor = [UIColor whiteColor];
             _nameLabel.textAlignment = NSTextAlignmentCenter;
-            _nameLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+            _nameLabel.font = [UIFont systemFontOfSize:15];
             [cell.contentView addSubview:_nameLabel];
         }
         _nameLabel.text = [AccountManager sharedManager].userName;
@@ -208,7 +209,7 @@ static NSString *cellId = @"cell";
         if (!_signTimes) {
             _signTimes = [[UILabel alloc]initWithFrame:CGRectMake(0, GG_BOTTOM_Y(_nameLabel)+RELATIVE_WIDTH(20), mScreenWidth, RELATIVE_WIDTH(40))];
             _signTimes.textColor = [UIColor whiteColor];
-            _signTimes.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+            _signTimes.font = [UIFont systemFontOfSize:12];
             _signTimes.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:_signTimes];
         }
@@ -223,7 +224,7 @@ static NSString *cellId = @"cell";
             cell = [[SignInTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.tag = 10000+indexPath.row;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         [cell setContentWithModel:model];
         return cell;
     }
@@ -231,6 +232,7 @@ static NSString *cellId = @"cell";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     for (NSInteger i =0; i<self.addressArray.count; i++) {
         SignInTableViewCell *cell = (SignInTableViewCell *)[self.view viewWithTag:10000+i];
         AddressModel *model =self.addressArray[i];
@@ -244,12 +246,6 @@ static NSString *cellId = @"cell";
     }
 }
 
-- (void)refreshData{
-    
-    [self startLocation];
-    [self.tableView reloadData];
-    [self.tableView.mj_header endRefreshing];
-}
 
 -(void)startLocation{
     NSLog(@"开始定位");

@@ -29,6 +29,10 @@
 
 @property(nonatomic ,strong)UITextView *inputPlanTextView;
 @property(nonatomic ,strong)UITextView *inputReportTextView;
+
+@property (nonatomic,strong) UILabel *planPlaceHodler;
+
+@property (nonatomic,strong) UILabel *reportPlanHodler;
 @property(nonatomic ,strong)PlanModel *planModel;
 @property(nonatomic ,copy) NSMutableArray *dayPlanArray;
 @property(nonatomic ,copy) NSMutableArray *dateTitleArray;//展示出来的日期
@@ -41,8 +45,6 @@
 @end
 
 @implementation PlanViewController{
-    UILabel *_planPlaceHodler;
-    UILabel *_reportPlanHodler;
     FilmView *mView;
     NSInteger _mIndex;
     dispatch_group_t _group;
@@ -157,11 +159,7 @@
 }
 
 - (void)initTitleView{
-    UIView *title = [[UIView alloc]initWithFrame:CGRectMake(0,
-                                                            RELATIVE_WIDTH(20),
-                                                            RELATIVE_WIDTH(220),
-                                                            RELATIVE_WIDTH(88))];
-    self.textButton = [[UIButton alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), RELATIVE_WIDTH(0), RELATIVE_WIDTH(180), RELATIVE_WIDTH(88))];
+    self.textButton = [[UIButton alloc]initWithFrame:CGRectMake(5, 0, 90, 44)];
     self.textButton.titleLabel.font = [UIFont systemFontOfSize:15];
     self.textButton.titleLabel.textColor = [UIColor whiteColor];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -169,14 +167,14 @@
     NSString *temp = [formatter stringFromDate:[NSDateCalendar getNowTime]];
     NSArray *array = [temp componentsSeparatedByString:@"-"];
     [self.textButton setTitle:[NSString stringWithFormat:@"%@年%ld月",array[0],[array[1] integerValue]] forState:UIControlStateNormal];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.textButton.frame), CGRectGetMinY(self.textButton.frame), 20, 10)];
-    imageView.image = mImageByName(@"ic_direction_down");
-    imageView.center = CGPointMake(imageView.center.x, self.textButton.center.y);
-    [title addSubview:self.textButton];
-    [title addSubview:imageView];
+    [self.textButton setImage:mImageByName(@"ic_direction_down") forState:UIControlStateNormal];
+    
+    [self.textButton setImageEdgeInsets:UIEdgeInsetsMake(0, 75, 0, 0)];
+    [self.textButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 0)];
     [self.textButton addTarget:self action:@selector(alert) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = title;
+    self.navigationItem.titleView = self.textButton;
 }
+
 
 
 #pragma mark -initView
@@ -255,6 +253,15 @@
     self.inputPlanTextView.font = [UIFont systemFontOfSize:15];
     self.inputPlanTextView.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:self.inputPlanTextView];
+    
+    self.planPlaceHodler = [[UILabel alloc]initWithFrame:CGRectMake(10, RELATIVE_WIDTH(10), 100, 20)];
+    self.planPlaceHodler.layer.borderColor =grayTextcolor.CGColor;
+    self.planPlaceHodler.layer.borderWidth = 0.5;
+    self.planPlaceHodler.layer.cornerRadius = 10;
+    self.planPlaceHodler.font = mFont(12);
+    self.planPlaceHodler.textAlignment = NSTextAlignmentCenter;
+    self.planPlaceHodler.textColor = grayTextcolor;
+    [self.inputPlanTextView addSubview:self.planPlaceHodler];
 
     self.inputReportTextView = [[UITextView alloc]initWithFrame:CGRectMake(leftOrRightPadding, GG_BOTTOM_Y(self.inputPlanTextView), GG_W(self.inputPlanTextView), textViewHeight)];
     self.inputReportTextView.delegate = self;
@@ -262,6 +269,16 @@
     self.inputReportTextView.font = [UIFont systemFontOfSize:15];
     self.inputReportTextView.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:self.inputReportTextView];
+    
+    self.reportPlanHodler = [[UILabel alloc]initWithFrame:CGRectMake(10, RELATIVE_WIDTH(10), 100, 20)];
+    self.reportPlanHodler.font = mFont(12);
+    self.reportPlanHodler.layer.borderWidth = 0.5;
+    self.reportPlanHodler.layer.borderColor = grayTextcolor.CGColor;
+    self.reportPlanHodler.layer.cornerRadius = 10;
+    self.reportPlanHodler.textAlignment = NSTextAlignmentCenter;
+    self.reportPlanHodler.textColor = grayTextcolor;
+    [self.inputReportTextView addSubview:self.reportPlanHodler];
+
 }
 
 #pragma mark - clickListening
@@ -274,12 +291,17 @@
 }
 
 - (void)alert{//datepicker 弹窗
+    [self.inputPlanTextView resignFirstResponder];
+    [self.inputReportTextView resignFirstResponder];
+
     DateAlertView *backView = [[DateAlertView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, mScreenHeight)];
     backView.delegate = self;
     [self.view.window addSubview:backView];
 }
 
 - (void)saveData{//保存按钮
+    [self.inputPlanTextView resignFirstResponder];
+    [self.inputReportTextView resignFirstResponder];
     [self postPlan];
 }
 
@@ -298,12 +320,14 @@
         }
     }
     switch (btn.tag-10000) {
-        case 0:
+        case 0:{
             if ([self isThisWeekWithIndex:(int)_mIndex]) {
                 [self setPlanModelWithIndex:self.ButtonIndex];
                 self.ButtonIndex = 0;
             }
             [self setWeekContent];
+            [self setWeekPlaceHolder];
+        }
             break;
         default:
             if ([self isThisWeekWithIndex:(int)_mIndex]) {
@@ -311,6 +335,8 @@
                 self.ButtonIndex = btn.tag-10000;
             }
             [self setDayPlanContentWithIndex:btn.tag-10000];
+            [self setDayPlaceHodler];
+
             break;
     }
 }
@@ -339,23 +365,84 @@
         self.inputReportTextView.text = [NSString filterHTML:mPlanModel.reportContent];
 }
 
+#pragma -placeHolder
+
+- (void)setDayPlaceHodler{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:mFont(12),NSFontAttributeName,nil];
+
+    if ([self.inputPlanTextView.text isEqualToString:@""]) {
+        self.planPlaceHodler.hidden = NO;
+        self.planPlaceHodler.text = @"工作计划";
+        self.planPlaceHodler.frame = CGRectMake(10, RELATIVE_WIDTH(10),RealSize(self.planPlaceHodler.text, MaxedSize,dict).width +6, 20);
+
+    }else{
+        self.planPlaceHodler.hidden = YES;
+    }
+    if ([self.inputReportTextView.text isEqualToString:@""]) {
+        self.reportPlanHodler.hidden = NO;
+        self.reportPlanHodler.text = @"工作总结";
+        self.reportPlanHodler.frame = CGRectMake(10, RELATIVE_WIDTH(10),RealSize(self.reportPlanHodler.text, MaxedSize,dict).width+6 , 20);
+    }else{
+        self.reportPlanHodler.hidden = YES;
+    }
+}
+
+- (void)setWeekPlaceHolder{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:mFont(12),NSFontAttributeName,nil];
+    
+    if ([self.inputPlanTextView.text isEqualToString:@""]) {
+        self.planPlaceHodler.hidden = NO;
+        self.planPlaceHodler.text = @"周工作计划";
+        self.planPlaceHodler.frame = CGRectMake(10, RELATIVE_WIDTH(10),RealSize(self.planPlaceHodler.text, MaxedSize,dict).width +6, 20);
+        
+    }else{
+        self.planPlaceHodler.hidden = YES;
+    }
+    if ([self.inputReportTextView.text isEqualToString:@""]) {
+        self.reportPlanHodler.hidden = NO;
+        self.reportPlanHodler.text = @"周工作总结";
+        self.reportPlanHodler.frame = CGRectMake(10, RELATIVE_WIDTH(10),RealSize(self.reportPlanHodler.text, MaxedSize,dict).width+6 , 20);
+    }else{
+        self.reportPlanHodler.hidden = YES;
+    }
+}
+
 #pragma mark -editviewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if (![text isEqualToString:@""])
+    if (textView ==self.inputPlanTextView) {
+        if (![text isEqualToString:@""])
+            
+        {
+            self.planPlaceHodler.hidden = YES;
+        }
         
-    {
-        _planPlaceHodler.hidden = YES;
-    }
-    
-    if ([text isEqualToString:@""] && range.location == 0 && range.length == 1)
+        if ([text isEqualToString:@""] && range.location == 0 && range.length == 1)
+            
+        {
+            self.planPlaceHodler.hidden = NO;
+        }
         
-    {
-        _planPlaceHodler.hidden = NO;
-    }
-    
-    return YES;
+        return YES;
 
+    }else{
+        if (![text isEqualToString:@""])
+            
+        {
+            self.reportPlanHodler.hidden = YES;
+        }
+        
+        if ([text isEqualToString:@""] && range.location == 0 && range.length == 1)
+            
+        {
+            self.reportPlanHodler.hidden = NO;
+        }
+        
+        return YES;
+
+    }
+    
+    
 }
 
 #pragma mark - feachData
@@ -383,6 +470,7 @@
         }
         self.ButtonIndex =0;
         [self setWeekContent];
+        [self setWeekPlaceHolder];
     });
     
 }

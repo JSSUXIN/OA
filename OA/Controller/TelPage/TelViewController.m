@@ -214,7 +214,8 @@
         if (!cell) {
             cell = [[TelTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReuseId];
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.backgroundColor = mRGBColor(250, 250, 251);
         [cell setContentWithDic:usermodel];
 
         return cell;

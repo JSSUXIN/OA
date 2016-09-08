@@ -50,7 +50,7 @@
 
     [self.contentView addSubview:_detailLabel];
     
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(100), RELATIVE_WIDTH(118), mScreenWidth - 3*RELATIVE_WIDTH(20) - radiusOfImage, 0.5)];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(120), RELATIVE_WIDTH(118), mScreenWidth - 3*RELATIVE_WIDTH(20) - radiusOfImage, 0.5)];
     lineView.backgroundColor = halvingLineColor;
     [self.contentView addSubview:lineView];
     

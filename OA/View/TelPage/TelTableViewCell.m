@@ -26,7 +26,7 @@
     [self.contentView addSubview:self.headView];
     
     
-    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(self.headView)+RELATIVE_WIDTH(20), 0, RELATIVE_WIDTH(120), RELATIVE_WIDTH(40))];
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(self.headView)+RELATIVE_WIDTH(35), 0, RELATIVE_WIDTH(120), RELATIVE_WIDTH(40))];
     self.nameLabel.font = [UIFont systemFontOfSize:15];
     self.nameLabel.center = CGPointMake(self.nameLabel.center.x, RELATIVE_WIDTH(50));
     [self.contentView addSubview:self.nameLabel];

@@ -122,8 +122,8 @@
         UITabBarItem * item = [[UITabBarItem alloc] initWithTitle:titleArray[i] image:[mImageByName(imageArray[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[mImageByName(selectedArray[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
         //设置title字体属性
-        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: mRGBToColor(0x6d6d6d),NSForegroundColorAttributeName, [UIFont systemFontOfSize:12], NSFontAttributeName, nil] forState:UIControlStateNormal];//设置tabbar文字的颜色
-        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: mRGBToColor(0x007aff),NSForegroundColorAttributeName, [UIFont systemFontOfSize:12], NSFontAttributeName, nil] forState:UIControlStateSelected];//设置tabbar文字选中状态下的颜色
+        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: mRGBToColor(0x6d6d6d),NSForegroundColorAttributeName, [UIFont systemFontOfSize:10], NSFontAttributeName, nil] forState:UIControlStateNormal];//设置tabbar文字的颜色
+        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: mRGBToColor(0x007aff),NSForegroundColorAttributeName, [UIFont systemFontOfSize:10], NSFontAttributeName, nil] forState:UIControlStateSelected];//设置tabbar文字选中状态下的颜色
         
         //设置title的位置是左右偏移(horizontal) 还是上下偏移(vertical)
         [item setTitlePositionAdjustment:UIOffsetMake(0, -RELATIVE_WIDTH(3))];

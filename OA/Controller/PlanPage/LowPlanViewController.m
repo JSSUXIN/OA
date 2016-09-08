@@ -145,25 +145,21 @@
 }
 
 - (void)initTitleView{
-    UIView *title = [[UIView alloc]initWithFrame:CGRectMake(0,
-                                                            RELATIVE_WIDTH(20),
-                                                            RELATIVE_WIDTH(220),
-                                                            RELATIVE_WIDTH(88))];
-    self.textButton = [[UIButton alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(10), RELATIVE_WIDTH(0), RELATIVE_WIDTH(180), RELATIVE_WIDTH(88))];
-    self.textButton.titleLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+
+    self.textButton = [[UIButton alloc]initWithFrame:CGRectMake(5, 0, 90, 44)];
+    self.textButton.titleLabel.font = [UIFont systemFontOfSize:15];
     self.textButton.titleLabel.textColor = [UIColor whiteColor];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat = @"yyyy-MM";
     NSString *temp = [formatter stringFromDate:[NSDateCalendar getNowTime]];
     NSArray *array = [temp componentsSeparatedByString:@"-"];
     [self.textButton setTitle:[NSString stringWithFormat:@"%@年%ld月",array[0],[array[1] integerValue]] forState:UIControlStateNormal];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.textButton.frame), CGRectGetMinY(self.textButton.frame), RELATIVE_WIDTH(40), RELATIVE_WIDTH(20))];
-    imageView.image = mImageByName(@"ic_direction_down");
-    imageView.center = CGPointMake(imageView.center.x, self.textButton.center.y);
-    [title addSubview:self.textButton];
-    [title addSubview:imageView];
+    [self.textButton setImage:mImageByName(@"ic_direction_down") forState:UIControlStateNormal];
+    
+    [self.textButton setImageEdgeInsets:UIEdgeInsetsMake(0, 75, 0, 0)];
+    [self.textButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 0)];
     [self.textButton addTarget:self action:@selector(alert) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = title;
+    self.navigationItem.titleView = self.textButton;
 }
 
 
@@ -246,6 +242,7 @@
                                   buttonHeight);
         dayBtn.tag = 10000+i;
         dayBtn.titleLabel.numberOfLines = 0;
+        dayBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         dayBtn.titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
         [dayBtn setTitle:btnArray[i] forState:UIControlStateNormal];
         [dayBtn addTarget:self action:@selector(showContent:) forControlEvents:UIControlEventTouchUpInside];
@@ -253,12 +250,14 @@
     }
     self.inputPlanTextView = [[UITextView alloc]initWithFrame:CGRectMake(leftOrRightPadding, imageViewHeight+buttonHeight+marginWithImageAndButton, mScreenWidth - 2*leftOrRightPadding, textViewHeight)];
     self.inputPlanTextView.delegate = self;
+    self.inputPlanTextView.font = [UIFont systemFontOfSize:15];
+
     self.inputPlanTextView.textAlignment = NSTextAlignmentLeft;
     [_scrollview addSubview:self.inputPlanTextView];
     
     self.inputReportTextView = [[UITextView alloc]initWithFrame:CGRectMake(leftOrRightPadding, GG_BOTTOM_Y(self.inputPlanTextView), GG_W(self.inputPlanTextView), textViewHeight)];
     self.inputReportTextView.delegate = self;
-    
+    self.inputReportTextView.font = [UIFont systemFontOfSize:15];
     self.inputReportTextView.textAlignment = NSTextAlignmentLeft;
     [_scrollview addSubview:self.inputReportTextView];
 }
@@ -283,6 +282,9 @@
 }
 
 - (void)showContent:(UIButton *)btn{
+    [self.inputPlanTextView resignFirstResponder];
+    [self.inputReportTextView resignFirstResponder];
+
     NSLog(@"%ld",btn.tag);
     for (NSInteger i =0; i<8; i++) {
         if (i==btn.tag-10000) {
@@ -293,8 +295,9 @@
         }
     }
     switch (btn.tag-10000) {
-        case 0:
+        case 0:{
             [self setWeekContent];
+        }
             break;
         default:
             [self setDayPlanContentWithIndex:btn.tag-10000];
@@ -400,14 +403,14 @@
     dateTextLabel.backgroundColor = [UIColor clearColor];
     dateTextLabel.tag = 30000+index;
     dateTextLabel.text = self.dateTitleArray[index];
-    dateTextLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(20)];
+    dateTextLabel.font = [UIFont systemFontOfSize:10];
     [cell addSubview:backImage];
     [cell addSubview:dateTextLabel];
     if (index == 0) {
         cell.frame = CGRectMake(-10, -10, 100, 60);
         backImage.frame = CGRectMake(-5, -10, cell.frame.size.width, cell.frame.size.height);
         dateTextLabel.frame = CGRectMake(-5, -10, cell.frame.size.width, cell.frame.size.height);
-        dateTextLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+        dateTextLabel.font = [UIFont systemFontOfSize:15];
     }
     return cell;
 }
@@ -534,7 +537,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         backImage.frame = CGRectMake(-10, -10, 100, 60);
         dateTextLabel.frame = CGRectMake(-10, -10, 100, 60);
-        dateTextLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+        dateTextLabel.font = [UIFont systemFontOfSize:15];
         dateTextLabel.textColor = [UIColor whiteColor];
         //        coverString = images[index];
     }];
@@ -547,7 +550,7 @@
                 backImage.frame = CGRectMake(0, 0, 80, 40);
                 dateTextLabel.frame = CGRectMake(0, 0, 80, 40);
                 dateTextLabel.textColor = [UIColor whiteColor];
-                dateTextLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(20)];
+                dateTextLabel.font = [UIFont systemFontOfSize:10];
             }];
         }
     }

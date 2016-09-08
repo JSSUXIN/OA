@@ -83,39 +83,41 @@
     if (indexPath.section ==0) {
         if (indexPath.row ==0) {
             if (!_signTime) {
-            _signTime = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, RELATIVE_WIDTH(150), RELATIVE_WIDTH(30))];
+            _signTime = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, 80, RELATIVE_WIDTH(30))];
             _signTime.center = CGPointMake(_signTime.center.x, RELATIVE_WIDTH(50));
-            _signTime.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(25)];
+            _signTime.font = [UIFont systemFontOfSize:15];
             _signTime.text = @"签到时间:";
             [cell.contentView addSubview:_signTime];
             }
             if (!_timeLabel) {
                 _timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_signTime), 0, RELATIVE_WIDTH(120), RELATIVE_WIDTH(30))];
                 _timeLabel.center = CGPointMake(_timeLabel.center.x, RELATIVE_WIDTH(50));
-                _timeLabel.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+                _timeLabel.font = [UIFont systemFontOfSize:15];
                 [cell.contentView addSubview:_timeLabel];
             }
             
             _timeLabel.text = [self.timeArr lastObject];
-            UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(100), mScreenWidth, 0.5)];
+            UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(98), mScreenWidth, 0.5)];
             view.backgroundColor = halvingLineColor;
             [cell.contentView addSubview:view];
         }else if (indexPath.row ==1){
-            _signAddress = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, RELATIVE_WIDTH(150), RELATIVE_WIDTH(30))];
-            _signAddress.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(25)];
+            _signAddress = [[UILabel alloc]initWithFrame:CGRectMake(RELATIVE_WIDTH(20), 0, 80, RELATIVE_WIDTH(30))];
+            _signAddress.font = [UIFont systemFontOfSize:15];
             _signAddress.text = @"签到地点:";
             _signAddress.center = CGPointMake(_signAddress.center.x, RELATIVE_WIDTH(50));
             [cell.contentView addSubview:_signAddress];
             
-            _signDetail = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_signAddress),0 , mScreenWidth - RELATIVE_WIDTH(150), RELATIVE_WIDTH(30))];
+            _signDetail = [[UILabel alloc]initWithFrame:CGRectMake(GG_RIGHT_X(_signAddress),0 , mScreenWidth - 80, RELATIVE_WIDTH(30))];
             _signDetail.text = self.address;
-            _signDetail.font = [UIFont systemFontOfSize:RELATIVE_WIDTH(30)];
+            _signDetail.font = [UIFont systemFontOfSize:15];
             _signDetail.center =CGPointMake(_signDetail.center.x, RELATIVE_WIDTH(50));
             [cell.contentView addSubview:_signDetail];
         }
     }else{
-        _textView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, RELATIVE_WIDTH(400))];
+        _textView = [[BRPlaceholderTextView alloc]initWithFrame:CGRectMake(5, 0, mScreenWidth-10, RELATIVE_WIDTH(400))];
         _textView.placeholder = @"填写说明";
+        _textView.font = [UIFont systemFontOfSize:15];
+        [_textView setPlaceholderFont:[UIFont systemFontOfSize:15]];
         [cell.contentView addSubview:_textView];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -130,7 +132,7 @@
     if (section ==0) {
         return 0.01;
     }else{
-        return 10;
+        return RELATIVE_WIDTH(30);
     }
 }
 
