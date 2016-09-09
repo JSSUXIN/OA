@@ -79,6 +79,10 @@ static NSString *cellId = @"cell";
 
 
 - (void)viewDidLoad{
+    
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+
     self.title = @"签到";
     _locService = [[BMKLocationService alloc]init];
     [self.view addSubview:self.tableView];

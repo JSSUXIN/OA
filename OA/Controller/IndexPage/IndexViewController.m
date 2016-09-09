@@ -109,7 +109,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.pageCount = 5;
+    self.pageCount = 10;
     
     self.isFirstTableView = YES;
     
@@ -361,7 +361,6 @@
 
 
 - (void)feachNotice{
-//    [MBProgressHUD showHUD];
     [IndexNet excuteGetNoticeWithStartPage:self.pageCount*self.noticePage
                                    endPage:self.pageCount*(self.noticePage +1)
                                    Success:^(id obj) {
@@ -377,7 +376,6 @@
 }
 
 - (void)feachNews{
-//    [MBProgressHUD showHUD];
     [IndexNet excuteGetNewsWithStartPage:self.pageCount*self.newsPage
                                  endPage:self.pageCount*(self.newsPage +1)
                                  Success:^(id obj) {
@@ -393,7 +391,6 @@
 }
 
 - (void)refreshNotice{
-//    [MBProgressHUD showHUD];
     [IndexNet excuteGetNoticeWithStartPage:self.pageCount*self.noticePage
                                    endPage:self.pageCount*(self.noticePage +1)
                                    Success:^(id obj) {
@@ -411,7 +408,6 @@
 }
 
 - (void)refreshNews{
-//    [MBProgressHUD showHUD];
     [IndexNet excuteGetNewsWithStartPage:self.pageCount*self.newsPage
                                  endPage:self.pageCount*(self.newsPage +1)
                                  Success:^(id obj) {
@@ -453,7 +449,7 @@
         self.view.window.rootViewController =login;
         
     }];
-    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [alertController dismissViewControllerAnimated:YES completion:nil];
 
     }];
@@ -462,22 +458,7 @@
     
     [self presentViewController:alertController  animated:YES completion:nil];
 
-    
-    
-    
-    
-    
-//    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"loginUser.archiver"];
-//    
-//    NSFileManager *defaultManage = [NSFileManager defaultManager];
-//    if ([defaultManage isDeletableFileAtPath:filePath]) {
-//        [defaultManage removeItemAtPath:filePath error:nil];
-//        NSLog(@"删除用户信息成功");
-//    }
-    
-    
-    
-    
+
     
 }
 #pragma mark -刷新
@@ -530,47 +511,6 @@
     }
 }
 
-
-#pragma mark -跳转登录界面
-//- (void)pushLoginView{
-//    LoginViewController *login = [[LoginViewController alloc]init];
-//    login.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:login animated:YES];
-//}
-
-
-
-//#pragma mark -自动登录
-//- (void)autoLoginWithName:(NSString *)useName password:(NSString *)passWord{
-//    [LoginNet excuteLoginWithUserName:useName password:passWord success:^(id obj) {
-//        LoginModel *model = obj;
-//        self.account.loginSucces = YES;
-//        self.account.uid = model.uid;
-//        self.account.userName = model.name;
-//        self.account.headImage = [[NSString stringWithFormat:@"http://www.jssuxin.net:90%@",model.imageUrl] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        self.hidesBottomBarWhenPushed = NO;
-//
-//        self.pageCount = 5;
-//        
-//        self.isFirstTableView = YES;
-//        
-//        [self feachPictureData];
-//        
-//        [self refreshNews];
-//        
-//        [self refreshNotice];
-//        self.view.backgroundColor = [UIColor whiteColor];
-//        [self setNavigationBar];
-//        [self.view addSubview:self.tableView];
-//        NSLog(@"自动登录成功");
-//    } failed:^(id obj) {
-////        [MBProgressHUD hideHUD];
-//        [MBProgressHUD showText_b:@"自动登录失败，请重试新登录"];
-//        [self pushLoginView];
-//    }];
-//
-//
-//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

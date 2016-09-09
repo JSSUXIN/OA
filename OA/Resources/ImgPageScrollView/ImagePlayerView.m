@@ -136,7 +136,7 @@
     for (int i = 0; i < self.count; i++) {
         UIImageView *imageView = [[UIImageView alloc] init];
 //        imageView.contentMode = UIViewContentModeScaleToFill;
-//        imageView.contentMode=UIViewContentModeScaleAspectFill;
+        imageView.contentMode=UIViewContentModeScaleAspectFill;
         imageView.contentMode=self.imgMode;
         imageView.tag = kStartTag + i;
         imageView.userInteractionEnabled = YES;

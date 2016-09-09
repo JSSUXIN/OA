@@ -19,6 +19,8 @@
 @property (nonatomic,strong)NSURL *fileURL;
 
 
+@property (nonatomic,strong) UIWebView *webView;
+
 @property (nonatomic,strong) UITableView *tableView;
 
 @end
@@ -40,20 +42,28 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight)];
-    webView.backgroundColor = [UIColor whiteColor];
-    [webView setScalesPageToFit:YES];
+    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight)];
+    self.webView.backgroundColor = [UIColor whiteColor];
+    [self.webView setScalesPageToFit:YES];
     NSURLRequest *request = [NSURLRequest requestWithURL:mUrlWithString(self.urlString)];
-    [self.view addSubview:webView];
-    [webView loadRequest:request];
+    [self.view addSubview:self.webView];
+    [self.webView loadRequest:request];
     if (self.NoticeModel.files.count>0) {
-        webView.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300));
+        self.webView.frame = CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300));
         [self.view addSubview:self.tableView];
+        UIButton * fileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        fileBtn.backgroundColor = blueBackGround;
+        [fileBtn setTitle:[NSString stringWithFormat:@"附件数：%ld",self.NoticeModel.files.count] forState:UIControlStateNormal];
+        fileBtn.titleLabel.font = mFont(12);
+        fileBtn.frame = CGRectMake(mScreenWidth - 90, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(370), 80, RELATIVE_WIDTH(50));
+        fileBtn.layer.cornerRadius = RELATIVE_WIDTH(25);
+        fileBtn.layer.masksToBounds = YES;
+        [fileBtn addTarget:self action:@selector(hidefileTableview:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:fileBtn];
     }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
         if (webView.isLoading) {
         return;
         }
@@ -131,5 +141,21 @@
     openFileWebView.delegate = self;
     [openFileWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.fileURLString]]];
 
+}
+
+
+-(void)hidefileTableview:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    if (sender.selected ==YES) {
+        self.tableView.hidden = YES;
+        sender.frame = CGRectMake(mScreenWidth - 90, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(70), 80, RELATIVE_WIDTH(50));
+        self.webView.frame =CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight);
+        
+    }else{
+        self.tableView.hidden =NO;
+        sender.frame = CGRectMake(mScreenWidth - 90, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(370), 80, RELATIVE_WIDTH(50));
+        self.webView.frame =CGRectMake(0, 0, mScreenWidth, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(300));
+
+    }
 }
 @end

@@ -39,7 +39,7 @@
 
 -(UITableView *)searchTableView{
     if (!_searchTableView) {
-        _searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(90), mScreenWidth, RELATIVE_WIDTH(700)) style:UITableViewStylePlain];
+        _searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, RELATIVE_WIDTH(90), mScreenWidth, mScreenHeight-mNavBarWithStateHeight-mTabBarHeight- RELATIVE_WIDTH(90)) style:UITableViewStylePlain];
         _searchTableView.delegate = self;
         _searchTableView.dataSource = self;
         _searchTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -371,7 +371,7 @@
 
             [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }else{
-            [self pushAlertView:userModel.mobile];
+            [self pushAlertView:userModel.mobile name:userModel.name];
         }
 
     }else{
@@ -392,15 +392,15 @@
         NSLog(@"button 的tag ==%ld ，，，selecte ==%d",btn.tag,selecte);
         btn.selected = model.selected = selecte;
     }else{
-        [self pushAlertView:userModel.mobile];
+        [self pushAlertView:userModel.mobile name:userModel.name];
             }
     }
     
 }
 
 
-- (void)pushAlertView:(NSString *)telephone{
-    self.alertController = [UIAlertController alertControllerWithTitle:nil message:@"请选择操作方式" preferredStyle:UIAlertControllerStyleAlert];
+- (void)pushAlertView:(NSString *)telephone name:(NSString *)name{
+    self.alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"联系人:%@",name] preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *phone = [UIAlertAction actionWithTitle:@"打电话" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"打电话");
         if (![telephone isEqualToString:@""]) {

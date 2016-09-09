@@ -61,7 +61,7 @@
     }else if ([[textArray lastObject] isEqualToString:@"xlsx"]||[[textArray lastObject] isEqualToString:@"xls"]){
         self.styleImage.image = mImageByName(@"ic_default_xls");
     }else{
-        self.styleImage.image = mImageByName(@"");
+        self.styleImage.image = mImageByName(@"ic_default_other");
     }
     
     
@@ -77,7 +77,7 @@
     }else if ([[textArray lastObject] isEqualToString:@"xlsx"]||[[textArray lastObject] isEqualToString:@"xls"]){
         self.styleImage.image = mImageByName(@"ic_default_xls");
     }else{
-        self.styleImage.image = mImageByName(@"");
+        self.styleImage.image = mImageByName(@"ic_default_other");
     }
     self.nameLabel.text = model.fileName;
 }
