@@ -163,6 +163,11 @@
         if ((object !=nil) &&(error == nil)) {
             [MBProgressHUD showText_b:@"签到成功"];
         }
+       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSNumber *degree = [defaults objectForKey:@"degree"];
+        NSInteger inte = [degree integerValue];
+        inte ++;
+        [defaults setObject:[NSNumber numberWithInteger:inte] forKey:@"degree"];
     }];
 }
 

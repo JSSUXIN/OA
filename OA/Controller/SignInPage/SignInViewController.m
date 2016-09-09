@@ -33,6 +33,7 @@ static NSString *cellId = @"cell";
 
 @property (nonatomic,copy) NSArray *addressArray;
 
+@property (nonatomic,assign) NSInteger signDegree;
 
 @property (nonatomic,strong) BMKMapView* mapView;
 
@@ -82,7 +83,7 @@ static NSString *cellId = @"cell";
     
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-
+    
     self.title = @"签到";
     _locService = [[BMKLocationService alloc]init];
     [self.view addSubview:self.tableView];
@@ -95,6 +96,24 @@ static NSString *cellId = @"cell";
     [signInButton addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
     signInButton.backgroundColor = redBack;
     [self.view addSubview:signInButton];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSString *nowTime = [formatter stringFromDate:[NSDateCalendar getNowTime]];
+    
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    NSString *time = [defaults objectForKey:@"time"];
+    NSNumber *degree = [defaults objectForKey:@"degree"];
+    if ([time isEqualToString:nowTime]) {
+        time = time;
+    }else{
+        time = [formatter stringFromDate:[NSDateCalendar getNowTime]];
+        degree = 0;
+    }
+    self.signDegree = [degree integerValue];
+    [defaults setObject:degree forKey:@"degree"];
+    [defaults setObject:time forKey:@"time"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -138,7 +157,7 @@ static NSString *cellId = @"cell";
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
-            [btn setImageEdgeInsets:UIEdgeInsetsMake( 3,RELATIVE_WIDTH(60), 3, mScreenWidth/2 - RELATIVE_WIDTH(100 ))];
+            [btn setImageEdgeInsets:UIEdgeInsetsMake( 3,RELATIVE_WIDTH(50), 3, mScreenWidth/2 - RELATIVE_WIDTH(100 ))];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(3,RELATIVE_WIDTH(40), 3, RELATIVE_WIDTH(20))];
             [btn setTitleColor:grayTextcolor forState:UIControlStateNormal];
             NSDate *date = [NSDateCalendar getNowTime];
@@ -217,7 +236,7 @@ static NSString *cellId = @"cell";
             _signTimes.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:_signTimes];
         }
-            _signTimes.text = [NSString stringWithFormat:@"今天您已签到%d次",0];
+            _signTimes.text = [NSString stringWithFormat:@"今天您已签到%ld次",self.signDegree];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = blueBackGround;
         return cell;
