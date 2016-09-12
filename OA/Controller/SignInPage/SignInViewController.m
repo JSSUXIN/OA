@@ -37,6 +37,8 @@ static NSString *cellId = @"cell";
 
 @property (nonatomic,strong) BMKMapView* mapView;
 
+@property (nonatomic,strong) NSTimer *timer;
+
 
 @end
 
@@ -64,12 +66,26 @@ static NSString *cellId = @"cell";
     return _tableView;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _locService.delegate = self;
+    [self.timer setFireDate:[NSDate distantPast]];
+    [self refreshButtonTitle];
+    [self refreSignInTimes];
+
+    
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -114,6 +130,11 @@ static NSString *cellId = @"cell";
     self.signDegree = [degree integerValue];
     [defaults setObject:degree forKey:@"degree"];
     [defaults setObject:time forKey:@"time"];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
+    [[NSRunLoop  currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeState:) name:@"activeOrBack" object:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -279,7 +300,6 @@ static NSString *cellId = @"cell";
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
     _mapView.centerCoordinate = userLocation.location.coordinate;
-//    _location = userLocation;
     [self searchDeatilWithLocation:userLocation];
     [_locService stopUserLocationService];
 }
@@ -322,6 +342,53 @@ static NSString *cellId = @"cell";
     detailSign.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:detailSign animated:YES];
 }
+
+
+- (void)timerFired{
+    NSLog(@"执行后台时间刷新");
+    [self refreshButtonTitle];
+}
+
+
+- (void)refreshButtonTitle{
+    NSDate *date = [NSDateCalendar getNowTime];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    _time = [formatter stringFromDate:date];
+    NSArray *timeArr = [_time componentsSeparatedByString:@" "];
+    UIButton *btn = (UIButton *)[self.view viewWithTag:101];
+    [btn setTitle:[NSString stringWithFormat:@"当前时间：%@",[timeArr lastObject]] forState:UIControlStateNormal];
+
+}
+
+
+-(void)refreSignInTimes{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSString *nowTime = [formatter stringFromDate:[NSDateCalendar getNowTime]];
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    NSString *time = [defaults objectForKey:@"time"];
+    NSNumber *degree = [defaults objectForKey:@"degree"];
+    if ([time isEqualToString:nowTime]) {
+        time = time;
+    }else{
+        time = [formatter stringFromDate:[NSDateCalendar getNowTime]];
+        degree = 0;
+    }
+    self.signDegree = [degree integerValue];
+    [defaults setObject:degree forKey:@"degree"];
+    [defaults setObject:time forKey:@"time"];
+    
+    _signTimes.text = [NSString stringWithFormat:@"今天您已签到%ld次",self.signDegree];
+
+
+}
+
+
+
+
 
 
 @end

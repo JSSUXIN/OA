@@ -147,6 +147,9 @@
 
 - (void)submit{
     NSLog(@"点击提交");
+    if ([_textView.text isEqualToString:@""]) {
+        [MBProgressHUD showText_b:@"请填写说明"];
+    }else{
     NSDictionary *params = @{
         @"id": @"",
         @"uid": [AccountManager sharedManager].uid,
@@ -162,13 +165,14 @@
     [ElonHTTPSession POST:SIGNIN paraments:params completeBlock:^(NSDictionary * _Nullable object, NSError * _Nullable error) {
         if ((object !=nil) &&(error == nil)) {
             [MBProgressHUD showText_b:@"签到成功"];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSNumber *degree = [defaults objectForKey:@"degree"];
+            NSInteger inte = [degree integerValue];
+            inte ++;
+            [defaults setObject:[NSNumber numberWithInteger:inte] forKey:@"degree"];
         }
-       NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSNumber *degree = [defaults objectForKey:@"degree"];
-        NSInteger inte = [degree integerValue];
-        inte ++;
-        [defaults setObject:[NSNumber numberWithInteger:inte] forKey:@"degree"];
     }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
