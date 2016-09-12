@@ -82,14 +82,13 @@
 		B0D2E53C1D59BAA8003D32BD /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E53B1D59BAA8003D32BD /* AddressModel.m */; };
 		B0D2E5401D59BB4B003D32BD /* MapAddressNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E53F1D59BB4B003D32BD /* MapAddressNet.m */; };
 		B0D2E54C1D59D991003D32BD /* DetailSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E54A1D59D991003D32BD /* DetailSigninViewController.m */; };
+		B0D728871D86799A00074093 /* Tools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; };
 		B0E39B661D5D974E00C24A12 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E39B651D5D974E00C24A12 /* LoginModel.m */; };
 		B0E39B691D5D9DB800C24A12 /* LoginNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E39B681D5D9DB800C24A12 /* LoginNet.m */; };
 		B0E621361D4853EC00954AED /* UIButton+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E621351D4853EC00954AED /* UIButton+BackgroundColor.m */; };
 		B0E9F6061D5B1D9800E04309 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E9F6051D5B1D9800E04309 /* MailListViewController.m */; };
 		B0E9F6091D5B253B00E04309 /* MailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E9F6081D5B253A00E04309 /* MailListModel.m */; };
 		B0FA317E1D7576D8003DCD04 /* BRPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA317D1D7576D8003DCD04 /* BRPlaceholderTextView.m */; };
-		B0FA31801D76C1AF003DCD04 /* Tools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; };
-		B0FA31811D76C1C2003DCD04 /* Tools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; };
 		B0FA31821D76C1C2003DCD04 /* Tools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0FA318B1D77D870003DCD04 /* MailFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA318A1D77D870003DCD04 /* MailFileModel.m */; };
 /* End PBXBuildFile section */
@@ -285,6 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0D728871D86799A00074093 /* Tools.framework in Frameworks */,
 				B0D2E51C1D580DD8003D32BD /* libstdc++.6.0.9.tbd in Frameworks */,
 				B0D2E51A1D580DC2003D32BD /* CoreTelephony.framework in Frameworks */,
 				B0D2E5181D580DB3003D32BD /* libsqlite3.0.tbd in Frameworks */,
@@ -294,8 +294,6 @@
 				B0D2E5101D580D86003D32BD /* OpenGLES.framework in Frameworks */,
 				B0D2E50E1D580D66003D32BD /* QuartzCore.framework in Frameworks */,
 				B0D2E50C1D580D57003D32BD /* CoreLocation.framework in Frameworks */,
-				B0FA31801D76C1AF003DCD04 /* Tools.framework in Frameworks */,
-				B0FA31811D76C1C2003DCD04 /* Tools.framework in Frameworks */,
 				B0D2E50A1D580D01003D32BD /* BaiduMapAPI_Base.framework in Frameworks */,
 				B0D2E5081D547BB0003D32BD /* MessageUI.framework in Frameworks */,
 				052B9B52B7558C7E14A6115E /* libPods-OA.a in Frameworks */,
@@ -1188,10 +1186,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.jssuxin.oa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64 i386";
 			};
 			name = Debug;
 		};
@@ -1214,10 +1213,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.jssuxin.oa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64 i386";
 			};
 			name = Release;
 		};

@@ -32,7 +32,7 @@
                             endPage:(NSInteger)endpage
                             Success:(SuccessBlock)success
                              failed:(FailedBlock)failed{
-    NSString *urlEndString = [NSString stringWithFormat:@"News/tzgg?ULoginName=%@&ps=%ld&pe=%ld",[AccountManager sharedManager].userName,startPage,endpage];
+    NSString *urlEndString = [NSString stringWithFormat:@"News/tzgg?ULoginName=%@&ps=%ld&pe=%ld",[AccountManager sharedManager].userName,(long)startPage,(long)endpage];
     NSString *strEnd=[urlEndString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     [ElonHTTPSession requestWithRequestType:HTTPSRequestTypeGet urlString:HTTP_CONECT(BASE_URL, strEnd) paraments:nil completeBlock:^(NSDictionary * _Nullable object, NSError * _Nullable error) {
@@ -50,7 +50,7 @@
                             endPage:(NSInteger)endpage
                             Success:(SuccessBlock)success
                              failed:(FailedBlock)failed{
-    NSString *urlEndString = [NSString stringWithFormat:@"News/news?ULoginName=%@&ps=%ld&pe=%ld",[AccountManager sharedManager].userName,startPage,endpage];
+    NSString *urlEndString = [NSString stringWithFormat:@"News/news?ULoginName=%@&ps=%ld&pe=%ld",[AccountManager sharedManager].userName,(long)startPage,(long)endpage];
     NSString *strEnd=[urlEndString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     [ElonHTTPSession requestWithRequestType:HTTPSRequestTypeGet urlString:HTTP_CONECT(BASE_URL, strEnd) paraments:nil completeBlock:^(NSDictionary * _Nullable object, NSError * _Nullable error) {

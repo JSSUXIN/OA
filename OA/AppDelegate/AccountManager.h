@@ -11,7 +11,7 @@
 @interface AccountManager : NSObject
 
 @property (nonatomic,copy) NSString *userName;
-@property(assign,nonatomic)NSString *uid;
+@property(copy,nonatomic)NSString *uid;
 @property(assign,nonatomic) BOOL loginSucces;
 @property(copy,nonatomic)  NSString *headImage;
 

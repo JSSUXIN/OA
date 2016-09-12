@@ -29,7 +29,6 @@
 }
 
 
-@property (nonatomic,strong) AccountManager *account;
 @property (nonatomic,copy) NSArray *pictureArray;
 @property (nonatomic,strong)  ImagePlayerView* picView;
 
@@ -61,13 +60,6 @@
         _newsData = [[NSMutableArray alloc]init];
     }
     return _newsData;
-}
-
--(AccountManager *)account{
-    if (!_account) {
-        _account = [AccountManager sharedManager];
-    }
-    return _account;
 }
 
 
@@ -330,7 +322,7 @@
 - (void)imagePlayerView:(ImagePlayerView *)imagePlayerView didTapAtIndex:(NSInteger)index
 {
     IndexPictureModel *model = [self.pictureArray objectAtIndex:index];
-    NSLog(@"点击了第%ld张图",index);
+//    NSLog(@"点击了第%zd张图",index);
     NSString *urlString = [NSString stringWithFormat:@"http://jssuxin.net:90/Web_MobileServer/ViewNews.aspx?id=%@&uname=%@",model.nid,[AccountManager sharedManager].userName];
    NSString *strEnd=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

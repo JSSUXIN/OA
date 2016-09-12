@@ -257,7 +257,7 @@ static NSString *cellId = @"cell";
             _signTimes.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:_signTimes];
         }
-            _signTimes.text = [NSString stringWithFormat:@"今天您已签到%ld次",self.signDegree];
+            _signTimes.text = [NSString stringWithFormat:@"今天您已签到%zd次",self.signDegree];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = blueBackGround;
         return cell;
@@ -381,7 +381,7 @@ static NSString *cellId = @"cell";
     [defaults setObject:degree forKey:@"degree"];
     [defaults setObject:time forKey:@"time"];
     
-    _signTimes.text = [NSString stringWithFormat:@"今天您已签到%ld次",self.signDegree];
+    _signTimes.text = [NSString stringWithFormat:@"今天您已签到%ld次",(long)self.signDegree];
 
 
 }

@@ -16,7 +16,6 @@
 
 
 @interface LoginViewController ()
-@property(nonatomic,strong)AccountManager *account;
 
 
 @end
@@ -28,16 +27,6 @@
 @implementation LoginViewController{
     UITextField *_userName;
     UITextField *_passField;
-}
-
-
--(AccountManager *)account
-{
-    if(!_account)
-    {
-        _account=[AccountManager sharedManager];
-    }
-    return _account;
 }
 
 - (void)viewDidLoad {
@@ -113,13 +102,9 @@
                 NSLog(@"用户登录保存成功");
             }
             
-//            NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-//            [user setObject:mul forKey:@"userInfo"];
-//            [user synchronize];
-            
-            self.account.uid = model.uid;
-            self.account.userName = model.name;
-            self.account.headImage = [[NSString stringWithFormat:@"http://www.jssuxin.net:90%@",model.imageUrl] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [AccountManager sharedManager].uid = model.uid;
+            [AccountManager sharedManager].userName = model.name;
+            [AccountManager sharedManager].headImage = [[NSString stringWithFormat:@"http://www.jssuxin.net:90%@",model.imageUrl] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             DowmLoadAddressBook *downAddress = [[DowmLoadAddressBook alloc]init];
             [downAddress downLoadAddressBook];
 

@@ -53,7 +53,7 @@
         [self.view addSubview:self.tableView];
         UIButton * fileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         fileBtn.backgroundColor = blueBackGround;
-        [fileBtn setTitle:[NSString stringWithFormat:@"附件数：%ld",self.NoticeModel.files.count] forState:UIControlStateNormal];
+        [fileBtn setTitle:[NSString stringWithFormat:@"附件数：%zd",self.NoticeModel.files.count] forState:UIControlStateNormal];
         fileBtn.titleLabel.font = mFont(12);
         fileBtn.frame = CGRectMake(mScreenWidth - 90, mScreenHeight - mNavBarWithStateHeight - RELATIVE_WIDTH(370), 80, RELATIVE_WIDTH(50));
         fileBtn.layer.cornerRadius = RELATIVE_WIDTH(25);

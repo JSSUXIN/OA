@@ -166,7 +166,7 @@
     formatter.dateFormat = @"yyyy-MM";
     NSString *temp = [formatter stringFromDate:[NSDateCalendar getNowTime]];
     NSArray *array = [temp componentsSeparatedByString:@"-"];
-    [self.textButton setTitle:[NSString stringWithFormat:@"%@年%ld月",array[0],[array[1] integerValue]] forState:UIControlStateNormal];
+    [self.textButton setTitle:[NSString stringWithFormat:@"%@年%zd月",array[0],[array[1] integerValue]] forState:UIControlStateNormal];
     [self.textButton setImage:mImageByName(@"ic_direction_down") forState:UIControlStateNormal];
     
     [self.textButton setImageEdgeInsets:UIEdgeInsetsMake(0, 75, 0, 0)];
@@ -310,7 +310,7 @@
 }
 
 - (void)showContent:(UIButton *)btn{
-    NSLog(@"%ld",btn.tag);
+//    NSLog(@"%ld",btn.tag);
     for (NSInteger i =0; i<8; i++) {
         if (i==btn.tag-10000) {
             btn.selected = YES;
@@ -687,7 +687,7 @@
             index = 0;
         }
     }
-    NSLog(@"滑动到第%ld个",index);
+    NSLog(@"滑动到第%ld个",(long)index);
     return index;
 }
 

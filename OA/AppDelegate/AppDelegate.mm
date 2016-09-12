@@ -19,7 +19,6 @@
 @property (nonatomic,strong) TabBarViewController *tabBarController;
 
 
-//@property (nonatomic,strong) AccountManager *account;
 
 @property (nonatomic,strong) LoginViewController *loginViewController;
 
@@ -30,14 +29,6 @@
     BMKMapManager* _mapManager;
 
 }
-
-
-//-(AccountManager *)account{
-//    if (!_account) {
-//        _account = [AccountManager sharedManager];
-//    }
-//    return _account;
-//}
 
 #pragma mark - init 初始化方法 -
 - (TabBarViewController*)tabBarController

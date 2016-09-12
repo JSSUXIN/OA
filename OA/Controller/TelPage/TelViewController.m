@@ -292,7 +292,7 @@
     //设置分组标题
     TelBookModel *model = [[TelBookModel alloc]init];
     model = [self.dataArray objectAtIndex:section];
-    [eButton setTitle:[NSString stringWithFormat:@"%@(%ld)",[model.deptName substringFromIndex:5],model.users.count] forState:UIControlStateNormal];
+    [eButton setTitle:[NSString stringWithFormat:@"%@(%ld)",[model.deptName substringFromIndex:5],(unsigned long)model.users.count] forState:UIControlStateNormal];
     
     [eButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
@@ -389,7 +389,7 @@
             }
         }
         UIButton *btn = (UIButton *)[self.view viewWithTag:indexPath.section*1000000+6];
-        NSLog(@"button 的tag ==%ld ，，，selecte ==%d",btn.tag,selecte);
+//        NSLog(@"button 的tag ==%d ，，，selecte ==%d",btn.tag,selecte);
         btn.selected = model.selected = selecte;
     }else{
         [self pushAlertView:userModel.mobile name:userModel.name];
@@ -543,7 +543,7 @@
 }
 
 - (void)allChoose:(UIButton *)sender{
-    NSLog(@"%ld",sender.tag);
+//    NSLog(@"%d",sender.tag);
     TelBookModel *model = [self.dataArray objectAtIndex:(sender.tag - 6)/1000000];
     model.selected = !model.selected;
     sender.selected = model.selected;
