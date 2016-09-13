@@ -180,12 +180,13 @@
         if (!cell) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             self.picView = [[ImagePlayerView alloc]initWithFrame:CGRectMake(0, 0, mScreenWidth, heightOfImageScroll)];
-            NSArray *arr=@[
-                           @"http://src.zhids.cn/src/img/banner1.jpg",
-                           @"http://src.zhids.cn/src/img/banner2.jpg",
-                           @"http://src.zhids.cn/src/img/banner3.jpg",
-                           @"http://src.zhids.cn/src/img/banner4.jpg"];
-            self.ImageUrls=arr;
+//            NSArray *arr=@[
+//                           @"http://src.zhids.cn/src/img/banner1.jpg",
+//                           @"http://src.zhids.cn/src/img/banner2.jpg",
+//                           @"http://src.zhids.cn/src/img/banner3.jpg",
+//                           @"http://src.zhids.cn/src/img/banner4.jpg"];
+//            self.ImageUrls=arr;
+            self.picView.imgMode=UIViewContentModeScaleAspectFill;
             self.picView.imagePlayerViewDelegate=self;
             self.picView.scrollInterval = 5.0f;
             self.picView.pageControlPosition = ICPageControlPosition_BottomCenter;

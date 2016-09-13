@@ -847,7 +847,7 @@
 				TargetAttributes = {
 					B048946F1D340C3900FB3AA5 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2S25LUGR55;
+						DevelopmentTeam = EJVL9P74F8;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -1187,7 +1187,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.jssuxin.oa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jssuxin.oa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64 i386";
@@ -1214,7 +1214,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = net.jssuxin.oa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jssuxin.oa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64 i386";
