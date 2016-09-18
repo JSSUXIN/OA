@@ -508,7 +508,7 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy-MM-dd"];
         NSDate *startTime = [formatter dateFromString:array[0]];
-        NSDate *endTime = [formatter dateFromString:array[1]];
+        NSDate *endTime = [NSDateCalendar getNextMondayWithDate:startTime];
         NSDate *now = [NSDateCalendar getNowTime];
         if ((now == [now earlierDate:endTime]||[now isEqualToDate:endTime])&&(now == [startTime laterDate:now]||[now isEqualToDate:startTime])) {
             index = i;
