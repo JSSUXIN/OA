@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		052B9B52B7558C7E14A6115E /* libPods-OA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D4A908B58BE6B7A282BF10 /* libPods-OA.a */; };
+		1849F0601D8784DA00760E36 /* NavTabBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1849F0571D8784DA00760E36 /* NavTabBar.bundle */; };
+		1849F0611D8784DA00760E36 /* NavTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1849F05A1D8784DA00760E36 /* NavTabBarController.m */; };
+		1849F0621D8784DA00760E36 /* NavTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1849F05D1D8784DA00760E36 /* NavTabBar.m */; };
+		1849F0631D8784DA00760E36 /* SCPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1849F05F1D8784DA00760E36 /* SCPopView.m */; };
 		B00AC0D41D5C53F70025D4AF /* MailDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AC0D21D5C53F70025D4AF /* MailDetailViewController.m */; };
 		B00AC0DD1D5C64B80025D4AF /* MailEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AC0DB1D5C64B80025D4AF /* MailEditTableViewCell.m */; };
 		B00AC0E21D5C64CB0025D4AF /* MailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B00AC0E01D5C64CB0025D4AF /* MailTableViewCell.m */; };
@@ -82,14 +86,12 @@
 		B0D2E53C1D59BAA8003D32BD /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E53B1D59BAA8003D32BD /* AddressModel.m */; };
 		B0D2E5401D59BB4B003D32BD /* MapAddressNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E53F1D59BB4B003D32BD /* MapAddressNet.m */; };
 		B0D2E54C1D59D991003D32BD /* DetailSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2E54A1D59D991003D32BD /* DetailSigninViewController.m */; };
-		B0D728871D86799A00074093 /* Tools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; };
 		B0E39B661D5D974E00C24A12 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E39B651D5D974E00C24A12 /* LoginModel.m */; };
 		B0E39B691D5D9DB800C24A12 /* LoginNet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E39B681D5D9DB800C24A12 /* LoginNet.m */; };
 		B0E621361D4853EC00954AED /* UIButton+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E621351D4853EC00954AED /* UIButton+BackgroundColor.m */; };
 		B0E9F6061D5B1D9800E04309 /* MailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E9F6051D5B1D9800E04309 /* MailListViewController.m */; };
 		B0E9F6091D5B253B00E04309 /* MailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E9F6081D5B253A00E04309 /* MailListModel.m */; };
 		B0FA317E1D7576D8003DCD04 /* BRPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA317D1D7576D8003DCD04 /* BRPlaceholderTextView.m */; };
-		B0FA31821D76C1C2003DCD04 /* Tools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0FA317F1D76C1AF003DCD04 /* Tools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0FA318B1D77D870003DCD04 /* MailFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA318A1D77D870003DCD04 /* MailFileModel.m */; };
 /* End PBXBuildFile section */
 
@@ -117,7 +119,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B0FA31821D76C1C2003DCD04 /* Tools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +126,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1849F0561D8784DA00760E36 /* CommonMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMacro.h; sourceTree = "<group>"; };
+		1849F0571D8784DA00760E36 /* NavTabBar.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NavTabBar.bundle; sourceTree = "<group>"; };
+		1849F0591D8784DA00760E36 /* NavTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTabBarController.h; sourceTree = "<group>"; };
+		1849F05A1D8784DA00760E36 /* NavTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTabBarController.m; sourceTree = "<group>"; };
+		1849F05C1D8784DA00760E36 /* NavTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTabBar.h; sourceTree = "<group>"; };
+		1849F05D1D8784DA00760E36 /* NavTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTabBar.m; sourceTree = "<group>"; };
+		1849F05E1D8784DA00760E36 /* SCPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopView.h; sourceTree = "<group>"; };
+		1849F05F1D8784DA00760E36 /* SCPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopView.m; sourceTree = "<group>"; };
 		41D4A908B58BE6B7A282BF10 /* libPods-OA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43923B45F607941E6D30BB6E /* Pods-OA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OA.release.xcconfig"; path = "Pods/Target Support Files/Pods-OA/Pods-OA.release.xcconfig"; sourceTree = "<group>"; };
 		81B937B50AF7A91577B365BE /* Pods-OA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OA/Pods-OA.debug.xcconfig"; sourceTree = "<group>"; };
@@ -274,7 +283,6 @@
 		B0E9F6081D5B253A00E04309 /* MailListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailListModel.m; sourceTree = "<group>"; };
 		B0FA317C1D7576D8003DCD04 /* BRPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPlaceholderTextView.h; sourceTree = "<group>"; };
 		B0FA317D1D7576D8003DCD04 /* BRPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPlaceholderTextView.m; sourceTree = "<group>"; };
-		B0FA317F1D76C1AF003DCD04 /* Tools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Tools.framework; sourceTree = "<group>"; };
 		B0FA31891D77D870003DCD04 /* MailFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailFileModel.h; sourceTree = "<group>"; };
 		B0FA318A1D77D870003DCD04 /* MailFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailFileModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -284,7 +292,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0D728871D86799A00074093 /* Tools.framework in Frameworks */,
 				B0D2E51C1D580DD8003D32BD /* libstdc++.6.0.9.tbd in Frameworks */,
 				B0D2E51A1D580DC2003D32BD /* CoreTelephony.framework in Frameworks */,
 				B0D2E5181D580DB3003D32BD /* libsqlite3.0.tbd in Frameworks */,
@@ -317,6 +324,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1849F0551D8784DA00760E36 /* SCNavTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1849F0561D8784DA00760E36 /* CommonMacro.h */,
+				1849F0571D8784DA00760E36 /* NavTabBar.bundle */,
+				1849F0581D8784DA00760E36 /* ViewControllers */,
+				1849F05B1D8784DA00760E36 /* Views */,
+			);
+			path = SCNavTabBar;
+			sourceTree = "<group>";
+		};
+		1849F0581D8784DA00760E36 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1849F0591D8784DA00760E36 /* NavTabBarController.h */,
+				1849F05A1D8784DA00760E36 /* NavTabBarController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1849F05B1D8784DA00760E36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1849F05C1D8784DA00760E36 /* NavTabBar.h */,
+				1849F05D1D8784DA00760E36 /* NavTabBar.m */,
+				1849F05E1D8784DA00760E36 /* SCPopView.h */,
+				1849F05F1D8784DA00760E36 /* SCPopView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A02B9D8C5E92A531B74A2423 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,6 +646,7 @@
 		B04894C81D3491B500FB3AA5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1849F0551D8784DA00760E36 /* SCNavTabBar */,
 				B0FA317B1D7576AA003DCD04 /* BRPlaceholderTextView */,
 				B0A7CD861D4F0ED300EA1732 /* ImgPageScrollView */,
 				B00AD60D1D41C10600492391 /* loading.gif */,
@@ -742,7 +781,6 @@
 		B0E9F5F41D5B0A2B00E04309 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				B0FA317F1D76C1AF003DCD04 /* Tools.framework */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -892,6 +930,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B00AD60B1D41BF7200492391 /* success.png in Resources */,
+				1849F0601D8784DA00760E36 /* NavTabBar.bundle in Resources */,
 				B04894831D340C3900FB3AA5 /* LaunchScreen.storyboard in Resources */,
 				B00AD60E1D41C10600492391 /* loading.gif in Resources */,
 				B00AD6101D41F8C900492391 /* Images.xcassets in Resources */,
@@ -990,11 +1029,13 @@
 				B0A7CD981D4F185500EA1732 /* UsersModel.m in Sources */,
 				B04895471D3872FF00FB3AA5 /* NSDateCalendar.m in Sources */,
 				B00AC0D41D5C53F70025D4AF /* MailDetailViewController.m in Sources */,
+				1849F0621D8784DA00760E36 /* NavTabBar.m in Sources */,
 				B0E9F6061D5B1D9800E04309 /* MailListViewController.m in Sources */,
 				B0D2E5231D587A18003D32BD /* WebViewController.m in Sources */,
 				B04894B71D347F4E00FB3AA5 /* PlanViewController.m in Sources */,
 				B0C6EC0B1D5332D1006C53FA /* ImagePlayerView.m in Sources */,
 				B04894C01D347F8200FB3AA5 /* IndexViewController.m in Sources */,
+				1849F0631D8784DA00760E36 /* SCPopView.m in Sources */,
 				B0A7CD921D4F122C00EA1732 /* TelBookNet.m in Sources */,
 				B0C6EC041D531557006C53FA /* ImageTableViewCell.m in Sources */,
 				B0A7CD951D4F14A500EA1732 /* TelBookModel.m in Sources */,
@@ -1025,6 +1066,7 @@
 				B02A45941D701EE9004FFA5C /* DowmLoadAddressBook.m in Sources */,
 				B04894BA1D347F6100FB3AA5 /* MailViewController.m in Sources */,
 				B02A45971D702338004FFA5C /* ParseModelToAddressBook.m in Sources */,
+				1849F0611D8784DA00760E36 /* NavTabBarController.m in Sources */,
 				B04894751D340C3900FB3AA5 /* main.m in Sources */,
 				B0CA8B601D3C77A90016B75B /* DateAlertView.m in Sources */,
 				B048953F1D37733300FB3AA5 /* FilmPageView.m in Sources */,
@@ -1175,6 +1217,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit",
@@ -1202,6 +1245,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit",
